@@ -1,9 +1,31 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
+import { useEffect, useState } from "react";
 
-const Home: NextPage = (props) => {
-	console.log(props);
+const Home: NextPage = ({ shopify }: any) => {
+	const [products, setProducts] = useState();
+
+	useEffect(() => {
+		console.log(shopify.data.products.edges[0].node.media);
+		const items = shopify.data.products.edges.map((prod: any) => {
+			let image: string, vrnts: [any, any];
+
+			prod.node.media.edges.length < 1 ? (image = "") : (image = prod.node.media.edges[0].node.image.originalSrc);
+			prod.node.variants.edges.length < 2 ? (vrnts = [null, null]) : (vrnts = [prod.node.variants.edges[0].node, prod.node.variants.edges[1].node]);
+
+			return {
+				id: prod.node.id,
+				title: prod.node.title,
+				description: prod.node.description,
+				img: image,
+				variants: vrnts,
+			};
+		});
+
+		setProducts(items);
+	}, []);
+	console.log(products);
 	return (
 		<div
 			css={css`
@@ -70,13 +92,13 @@ export async function getStaticProps() {
 	};
 
 	const res = await fetch(GRAPHQL_URL, GRAPHQL_BODY());
-	const data = await res.json();
-	console.log(data.data.products.edges);
+	const shopify = await res.json();
+	console.log(shopify.data.products.edges);
 
 	// By returning { props: { posts } }, the Blog component
 	// will receive `posts` as a prop at build time
 	return {
-		props: { data },
+		props: { shopify },
 	};
 }
 
