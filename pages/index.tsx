@@ -2,6 +2,12 @@
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import Nav from "../components/Nav";
+import Landing from "../components/Landing";
+import Shop from "../components/Shop";
+import Values from "../components/Values";
+import Email from "../components/Email";
+import Footer from "../components/Footer";
 
 const Home: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState();
@@ -25,14 +31,15 @@ const Home: NextPage = ({ shopify }: any) => {
 
 		setProducts(items);
 	}, []);
-	console.log(products);
+
 	return (
-		<div
-			css={css`
-				color: red;
-			`}
-		>
-			what
+		<div>
+			<Nav />
+			<Landing />
+			<Shop />
+			<Values />
+			<Email />
+			<Footer />
 		</div>
 	);
 };
@@ -93,7 +100,6 @@ export async function getStaticProps() {
 
 	const res = await fetch(GRAPHQL_URL, GRAPHQL_BODY());
 	const shopify = await res.json();
-	console.log(shopify.data.products.edges);
 
 	// By returning { props: { posts } }, the Blog component
 	// will receive `posts` as a prop at build time
