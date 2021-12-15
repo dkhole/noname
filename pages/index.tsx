@@ -32,6 +32,7 @@ const Home: NextPage = ({ shopify }: any) => {
 		setProducts(items);
 	}, []);
 
+	console.log(products);
 	return (
 		<div>
 			<Nav />
@@ -100,7 +101,6 @@ export async function getStaticProps() {
 
 	const res = await fetch(GRAPHQL_URL, GRAPHQL_BODY());
 	const shopify = await res.json();
-
 	// By returning { props: { posts } }, the Blog component
 	// will receive `posts` as a prop at build time
 	return {
