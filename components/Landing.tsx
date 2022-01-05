@@ -53,6 +53,10 @@ export default function Landing() {
 							width: 105px;
 							box-shadow: 4px 5px #2b6e6c;
 							cursor: pointer;
+							&:hover {
+								background-color: #2b6e6c;
+								color: white;
+							}
 						`}
 					>
 						SHOP NOW

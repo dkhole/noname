@@ -85,6 +85,7 @@ export default function Nav() {
 				align-items: center;
 				justify-content: space-around;
 				z-index: 1;
+				text-align: left;
 			`}
 		>
 			<div css={navStyles(isNavOpen)}>
