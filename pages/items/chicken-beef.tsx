@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Nav from "../../components/Nav";
+import Info from "../../components/Info";
 import Image from "next/image";
 import beef from "../../imgs/beef.png";
 
@@ -33,6 +34,7 @@ export default function Shop() {
 				css={css`
 					text-align: left;
 					padding-left: 20px;
+					margin-bottom: 40px;
 				`}
 			>
 				<h1
@@ -108,6 +110,13 @@ export default function Shop() {
 					</button>
 				</div>
 			</div>
+			<Info
+				title="WHAT IS IT?"
+				content="Our Chicken + Beef recipe is formulated for adult dogs. This recipe has a moderate fat content, making it a great all-rounder choice for most dogs, though not those with a history of severe pancreatitis or kidney disesase. It has a variety of vegetables, leafy greens and has fatty fish which contains EHAs + Omega 6 to support healthy eye and brain function."
+				table={false}
+			/>
+			<Info title="INGREDIENTS" content="Chicken, Beef Liver, Beef Kidney, Spinach, Carrot, Egg, Pilchards, Strawberries, Blueberries, Blackberries, Deyhydrated Bone Meal, Basil, Calcified Seaweed, Kelp Powder, Extra Virgin Olive Oil." table={false} />
+			<Info title="NUTRITIONAL BREAKDOWN" content="This recipe is formulated to meet the NRC nutritional guidelines. Read more about why we choose to meet NRC over AAFCO guidelines here." table={true} />
 		</div>
 	);
 }

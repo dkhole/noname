@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { useState } from "react";
 import Image from "next/image";
 import nonameLogo from "../imgs/noname.png";
 import cart from "../imgs/cart.svg";
-import { useState } from "react";
+import CartItem from "./CartItem";
 
 export default function Nav() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
@@ -61,17 +62,11 @@ export default function Nav() {
 	`;
 
 	const toggleNav = () => {
-		if (isCartOpen) {
-			setIsCartOpen(false);
-		}
-		setIsNavOpen(!isNavOpen);
+		isNavOpen ? setIsNavOpen(false) : setIsNavOpen(true);
 	};
 
 	const toggleCart = () => {
-		if (isNavOpen) {
-			setIsNavOpen(false);
-		}
-		setIsCartOpen(!isCartOpen);
+		isCartOpen ? setIsCartOpen(false) : setIsCartOpen(true);
 	};
 
 	return (
@@ -200,11 +195,15 @@ export default function Nav() {
 						FREE DELIVERY! ON SYDNEY ORDERS OVER $50
 					</span>
 				</div>
+				{/**Cart items go here */}
 				<div
 					css={css`
 						height: calc(100vh - 250px);
 					`}
-				></div>
+				>
+					<CartItem />
+					<CartItem />
+				</div>
 				<div
 					css={css`
 						border-top: 1px solid black;
