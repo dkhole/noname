@@ -123,7 +123,12 @@ export default function Values() {
 						font-weight: 800;
 						font-size: 11px;
 						margin-top: 25px;
-						cursor: pointer;
+						&:hover {
+							text-decoration: underline;
+							text-decoration-color: #f58f83;
+							text-decoration-thickness: 4px;
+							cursor: pointer;
+						}
 					`}
 				>
 					READ MORE

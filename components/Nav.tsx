@@ -5,6 +5,7 @@ import Image from "next/image";
 import nonameLogo from "../imgs/noname.png";
 import cart from "../imgs/cart.svg";
 import CartItem from "./CartItem";
+import Link from "next/link";
 
 export default function Nav() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
@@ -139,14 +140,19 @@ export default function Nav() {
 				<span css={hamburgerSpanStyle}></span>
 				<span css={hamburgerSpanStyle}></span>
 			</div>
-			<Image
-				src={nonameLogo}
-				alt="Noname logo"
-				// width={500} automatically provided
-				// height={500} automatically provided
-				// blurDataURL="data:..." automatically provided
-				// placeholder="blur" // Optional blur-up while loading
-			/>
+			<Link href="/">
+				<Image
+					src={nonameLogo}
+					alt="Noname logo"
+					css={css`
+						cursor: pointer;
+					`}
+					// width={500} automatically provided
+					// height={500} automatically provided
+					// blurDataURL="data:..." automatically provided
+					// placeholder="blur" // Optional blur-up while loading
+				/>
+			</Link>
 			<Image
 				src={cart}
 				alt="Shopping cart logo"

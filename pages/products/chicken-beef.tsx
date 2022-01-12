@@ -61,6 +61,20 @@ export default function Shop() {
 					`}
 				>
 					<span>500g</span>
+					<br />
+					<span
+						css={css`
+							font-size: 12px;
+							display: inline-block;
+							transform: translateY(7.5px);
+							font-weight: 600;
+							text-decoration: underline;
+							color: #f58f83;
+							cursor: pointer;
+						`}
+					>
+						Read customer testimonials
+					</span>
 				</div>
 				<div
 					css={css`

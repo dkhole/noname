@@ -62,6 +62,10 @@ export default function Email() {
 					padding: 10px;
 					border: none;
 					cursor: pointer;
+					&:hover {
+						background-color: #2b6e6c;
+						color: #c3dedd;
+					}
 				`}
 			>
 				FEED MY DOG

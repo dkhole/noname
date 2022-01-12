@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
+import Link from "next/link";
 import beefCut from "../imgs/beef-cut.png";
 
 export default function Landing() {
@@ -42,25 +43,27 @@ export default function Landing() {
 					>
 						Boost your dog's immune system. Support growth + healing.
 					</div>
-					<button
-						css={css`
-							background: none;
-							border: 2px solid #2b6e6c;
-							color: #2b6e6c;
-							font-weight: 800;
-							font-size: 13px;
-							height: 40px;
-							width: 105px;
-							box-shadow: 4px 5px #2b6e6c;
-							cursor: pointer;
-							&:hover {
-								background-color: #2b6e6c;
-								color: white;
-							}
-						`}
-					>
-						SHOP NOW
-					</button>
+					<Link href={"/products"}>
+						<button
+							css={css`
+								background: none;
+								border: 2px solid #2b6e6c;
+								color: #2b6e6c;
+								font-weight: 800;
+								font-size: 13px;
+								height: 40px;
+								width: 105px;
+								box-shadow: 4px 5px #2b6e6c;
+								cursor: pointer;
+								&:hover {
+									background-color: #2b6e6c;
+									color: white;
+								}
+							`}
+						>
+							SHOP NOW
+						</button>
+					</Link>
 				</div>
 				<Image src={beefCut} alt="Beef dog food" />
 			</div>

@@ -58,6 +58,12 @@ export default function Card({ img, title, description, price }: CardProps) {
 					css={css`
 						font-weight: 600;
 						font-size: 12px;
+						&:hover {
+							text-decoration: underline;
+							text-decoration-color: #f58f83;
+							text-decoration-thickness: 4px;
+							cursor: pointer;
+						}
 					`}
 				>
 					ADD TO BAG
