@@ -1,9 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import beef from "../imgs/beef.png";
 
-export default function CartItem() {
+export default function CartItem({ quantity }: any) {
+	const [itemQuantity, setItemQuantity]: any = useState(0);
+	useEffect(() => {
+		setItemQuantity(quantity);
+	}, [quantity]);
+
+	console.log(itemQuantity);
 	return (
 		<div
 			css={css`
@@ -64,6 +71,8 @@ export default function CartItem() {
 						type="number"
 						min="1"
 						max="10"
+						value={itemQuantity}
+						onChange={(e) => setItemQuantity(e.target.value)}
 					/>
 					<button
 						css={css`

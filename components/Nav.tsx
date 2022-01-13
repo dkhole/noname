@@ -7,7 +7,7 @@ import cart from "../imgs/cart.svg";
 import CartItem from "./CartItem";
 import Link from "next/link";
 
-export default function Nav() {
+export default function Nav({ localCart }: any) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -69,7 +69,7 @@ export default function Nav() {
 	const toggleCart = () => {
 		isCartOpen ? setIsCartOpen(false) : setIsCartOpen(true);
 	};
-
+console.log(localCart);
 	return (
 		<nav
 			css={css`
@@ -140,18 +140,17 @@ export default function Nav() {
 				<span css={hamburgerSpanStyle}></span>
 				<span css={hamburgerSpanStyle}></span>
 			</div>
-			<Link href="/">
-				<Image
-					src={nonameLogo}
-					alt="Noname logo"
-					css={css`
-						cursor: pointer;
-					`}
-					// width={500} automatically provided
-					// height={500} automatically provided
-					// blurDataURL="data:..." automatically provided
-					// placeholder="blur" // Optional blur-up while loading
-				/>
+			<Link href="/" passHref>
+				<div>
+					<Image
+						src={nonameLogo}
+						alt="Noname logo"
+						// width={500} automatically provided
+						// height={500} automatically provided
+						// blurDataURL="data:..." automatically provided
+						// placeholder="blur" // Optional blur-up while loading
+					/>
+				</div>
 			</Link>
 			<Image
 				src={cart}
@@ -207,8 +206,13 @@ export default function Nav() {
 						height: calc(100vh - 250px);
 					`}
 				>
-					<CartItem />
-					<CartItem />
+					{
+						localCart.lines ?
+							(localCart.lines.edges.map((item: any, count: number) => {
+								return <CartItem quantity={parseInt(item.node.quantity)} key={count} />;
+							})) : console.log("no")
+					}
+
 				</div>
 				<div
 					css={css`
@@ -238,21 +242,26 @@ export default function Nav() {
 							padding: 20px 0;
 							text-align: center;
 						`}
-					>
-						<button
-							css={css`
-								background-color: #c3dedd;
-								height: 40px;
-								width: calc(100% - 50px);
-								border: none;
-								font-size: 12px;
-								font-weight: 600;
-								box-shadow: 4px 5px #2b6e6c;
-								cursor: pointer;
-							`}
-						>
-							CHECKOUT
-						</button>
+					>{
+						localCart.checkoutUrl ? (
+							<Link href={localCart.checkoutUrl} passHref>
+								<button
+									css={css`
+										background-color: #c3dedd;
+										height: 40px;
+										width: calc(100% - 50px);
+										border: none;
+										font-size: 12px;
+										font-weight: 600;
+										box-shadow: 4px 5px #2b6e6c;
+										cursor: pointer;
+									`}
+								>
+									CHECKOUT
+								</button>
+							</Link>) : (<div></div>)
+					}
+						
 					</div>
 				</div>
 			</div>

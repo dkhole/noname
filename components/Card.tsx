@@ -3,13 +3,17 @@ import { css } from "@emotion/react";
 import Image from "next/image";
 
 interface CardProps {
+	addToCart: any;
+	localCart: any;
+	merchId: string;
 	img: StaticImageData;
 	title: string;
 	description: string;
 	price: string;
 }
 
-export default function Card({ img, title, description, price }: CardProps) {
+export default function Card({ addToCart, localCart, merchId, img, title, description, price }: CardProps) {
+
 	return (
 		<div
 			css={css`
@@ -55,6 +59,7 @@ export default function Card({ img, title, description, price }: CardProps) {
 				</span>
 				<br />
 				<span
+					onClick={(e) => addToCart(e, localCart.id, merchId)}
 					css={css`
 						font-weight: 600;
 						font-size: 12px;
