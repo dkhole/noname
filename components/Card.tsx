@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
+import { CartType } from "../utils/types/types";
 
 interface CardProps {
-	addToCart: any;
-	localCart: any;
+	addToCart: Function;
+	localCart: CartType;
 	merchId: string;
 	img: StaticImageData;
 	title: string;

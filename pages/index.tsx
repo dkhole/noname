@@ -9,37 +9,43 @@ import Values from "../components/Values";
 import Email from "../components/Email";
 import Footer from "../components/Footer";
 import { shopifyQuery } from "../utils/shopifyQuery";
+import { CartType } from "../utils/types/types";
 
 const Home: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState();
-	const [localCart, setLocalCart] = useState([]);
-
-	const createCart = async() => {
-
-		const res = await fetch('http://localhost:3000/api/cart',{method: 'POST', body: ''});
-		const resNew = await res.json();
-		if(resNew.data.cartCreate) {
-			setLocalCart(resNew.data.cartCreate.cart);
-			window.localStorage.setItem('nonameCart', JSON.stringify(resNew.data.cartCreate.cart))
-		}
+	const [localCart, setLocalCart] = useState<CartType>({	
+		checkoutUrl: "",
+		id: "",
+		lines: undefined});
+	
+	//save new cart in state and update local storage
+	const updateLocal = (resNew: CartType) => {
+		setLocalCart(resNew);
+		window.localStorage.setItem('nonameCart', JSON.stringify(resNew))
 	}
 
-	const addToCart = async(e: any, cartId: any, merchId: any) => {
+	const addToCart = async(e: any, cartId: string, merchId: string) => {
 		e.stopPropagation();
 		const res = await fetch('http://localhost:3000/api/cart', {method: "POST", body: JSON.stringify({cartId: cartId, merchId: merchId})});
 		const resNew = await res.json();
 		if(resNew.data.cartLinesAdd) {
-			setLocalCart(resNew.data.cartLinesAdd.cart);	
-			window.localStorage.setItem('nonameCart', JSON.stringify(resNew.data.cartLinesAdd.cart));
+			updateLocal(resNew.data.cartLinesAdd.cart);
 		}
 	}
 
-	//check if cart exists otherwise create and assign one
 	useEffect(() => {
 		const storage = window.localStorage;
 		let cart: any = storage.getItem('nonameCart');
+		//if cart doesnt exist create one save cart in state
+		const createCart = async() => {
+			const res = await fetch('http://localhost:3000/api/cart',{method: 'POST', body: ''});
+			const resNew = await res.json();
+			if(resNew.data.cartCreate) {
+				updateLocal(resNew.data.cartCreate.cart);
+			}
+		}
 		if (!cart) {
-			//create cart save in local storage and state
+			//create cart, have to do this for async function
 			const createCartFunction = async () => {
 				await createCart();
 			}
@@ -49,7 +55,6 @@ const Home: NextPage = ({ shopify }: any) => {
 			const parsedCart = JSON.parse(cart);
 			setLocalCart(parsedCart);
 		}
-		//set cart
 	}, []);
 
 	useEffect(() => {

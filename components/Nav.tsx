@@ -6,8 +6,13 @@ import nonameLogo from "../imgs/noname.png";
 import cart from "../imgs/cart.svg";
 import CartItem from "./CartItem";
 import Link from "next/link";
+import { CartType } from "../pages";
 
-export default function Nav({ localCart }: any) {
+interface Props {
+	localCart: CartType
+}
+
+export default function Nav({ localCart }: Props) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -69,7 +74,6 @@ export default function Nav({ localCart }: any) {
 	const toggleCart = () => {
 		isCartOpen ? setIsCartOpen(false) : setIsCartOpen(true);
 	};
-console.log(localCart);
 	return (
 		<nav
 			css={css`
@@ -210,7 +214,7 @@ console.log(localCart);
 						localCart.lines ?
 							(localCart.lines.edges.map((item: any, count: number) => {
 								return <CartItem quantity={parseInt(item.node.quantity)} key={count} />;
-							})) : console.log("no")
+							})) : <div></div>
 					}
 
 				</div>

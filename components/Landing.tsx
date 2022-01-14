@@ -41,9 +41,9 @@ export default function Landing() {
 							margin-bottom: 30px;
 						`}
 					>
-						Boost your dog's immune system. Support growth + healing.
+						Boost your dog&apos;s immune system. Support growth + healing.
 					</div>
-					<Link href={"/products"}>
+					<Link href={"/products"} passHref>
 						<button
 							css={css`
 								background: none;

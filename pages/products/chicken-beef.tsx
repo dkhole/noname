@@ -4,8 +4,54 @@ import Nav from "../../components/Nav";
 import Info from "../../components/Info";
 import Image from "next/image";
 import beef from "../../imgs/beef.png";
+import { useEffect, useState } from "react";
+import { CartType } from "../../utils/types/types";
 
 export default function Shop() {
+	const [localCart, setLocalCart] = useState<CartType>({	
+		checkoutUrl: "",
+		id: "",
+		lines: undefined});
+
+	//save new cart in state and update local storage
+	const updateLocal = (resNew: CartType) => {
+		setLocalCart(resNew);
+		window.localStorage.setItem('nonameCart', JSON.stringify(resNew))
+	}
+
+	const addToCart = async(e: any, cartId: string, merchId: string) => {
+		e.stopPropagation();
+		const res = await fetch('http://localhost:3000/api/cart', {method: "POST", body: JSON.stringify({cartId: cartId, merchId: merchId})});
+		const resNew = await res.json();
+		if(resNew.data.cartLinesAdd) {
+			updateLocal(resNew.data.cartLinesAdd.cart);
+		}
+	}
+
+	useEffect(() => {
+		const storage = window.localStorage;
+		let cart: any = storage.getItem('nonameCart');
+		//if cart doesnt exist create one save cart in state
+		const createCart = async() => {
+			const res = await fetch('http://localhost:3000/api/cart',{method: 'POST', body: ''});
+			const resNew = await res.json();
+			if(resNew.data.cartCreate) {
+				updateLocal(resNew.data.cartCreate.cart);
+			}
+		}
+		if (!cart) {
+			//create cart, have to do this for async function
+			const createCartFunction = async () => {
+				await createCart();
+			}
+			createCartFunction();		
+		} else {
+			//save in local state
+			const parsedCart = JSON.parse(cart);
+			setLocalCart(parsedCart);
+		}
+	}, []);
+	
 	return (
 		<div
 			css={css`
@@ -13,7 +59,7 @@ export default function Shop() {
 				text-align: center;
 			`}
 		>
-			<Nav />
+			<Nav localCart={localCart} />
 			<div
 				css={css`
 					padding-top: 125px;
@@ -109,6 +155,7 @@ export default function Shop() {
 								color: white;
 							}
 						`}
+						onClick={(e) => {addToCart(e, localCart.id, "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==")}}
 					>
 						ADD TO BAG
 						<span

@@ -2,9 +2,15 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import beef from "../imgs/beef.png";
+import { CartType } from "../pages";
 import Card from "./Card";
 
-export default function Shop({ addToCart, localCart }: any) {
+interface Props {
+	addToCart: Function,
+	localCart: CartType,
+}
+
+export default function Shop({ addToCart, localCart }: Props) {
 	return (
 		<div
 			css={css`

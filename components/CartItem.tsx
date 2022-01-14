@@ -4,8 +4,12 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import beef from "../imgs/beef.png";
 
-export default function CartItem({ quantity }: any) {
-	const [itemQuantity, setItemQuantity]: any = useState(0);
+interface Props {
+	quantity: number,
+}
+
+export default function CartItem({ quantity }: Props) {
+	const [itemQuantity, setItemQuantity] = useState<number>(0);
 	useEffect(() => {
 		setItemQuantity(quantity);
 	}, [quantity]);
@@ -70,9 +74,9 @@ export default function CartItem({ quantity }: any) {
 						`}
 						type="number"
 						min="1"
-						max="10"
+						max="100"
 						value={itemQuantity}
-						onChange={(e) => setItemQuantity(e.target.value)}
+						onChange={(e) => setItemQuantity(parseInt(e.target.value))}
 					/>
 					<button
 						css={css`
