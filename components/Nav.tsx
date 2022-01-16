@@ -6,7 +6,7 @@ import nonameLogo from "../imgs/noname.png";
 import cart from "../imgs/cart.svg";
 import CartItem from "./CartItem";
 import Link from "next/link";
-import { CartType } from "../pages";
+import { CartType } from "../utils/types";
 
 interface Props {
 	localCart: CartType

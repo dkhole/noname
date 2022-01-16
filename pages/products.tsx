@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Nav from "../components/Nav";
 import beef from "../imgs/beef.png";
-import { CartType } from "../utils/types/types";
+import { CartType } from "../utils/types";
 
 export default function Products() {
 	const [localCart, setLocalCart] = useState<CartType>({	

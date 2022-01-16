@@ -9,10 +9,10 @@ import Values from "../components/Values";
 import Email from "../components/Email";
 import Footer from "../components/Footer";
 import { shopifyQuery } from "../utils/shopifyQuery";
-import { CartType } from "../utils/types/types";
+import { CartType, ProductType } from "../utils/types";
 
 const Home: NextPage = ({ shopify }: any) => {
-	const [products, setProducts] = useState();
+	const [products, setProducts] = useState<ProductType>();
 	const [localCart, setLocalCart] = useState<CartType>({	
 		checkoutUrl: "",
 		id: "",
@@ -59,17 +59,12 @@ const Home: NextPage = ({ shopify }: any) => {
 
 	useEffect(() => {
 		const items = shopify.data.products.edges.map((prod: any) => {
-			let image: string, vrnts: [any, any];
-
-			prod.node.media.edges.length < 1 ? (image = "") : (image = prod.node.media.edges[0].node.image.originalSrc);
-			prod.node.variants.edges.length < 2 ? (vrnts = [null, null]) : (vrnts = [prod.node.variants.edges[0].node, prod.node.variants.edges[1].node]);
-
 			return {
 				id: prod.node.id,
 				title: prod.node.title,
 				description: prod.node.description,
-				img: image,
-				variants: vrnts,
+				merchId: prod.node.variants.edges[0].node.id,
+				price: parseInt(prod.node.variants.edges[0].node.priceV2.amount),
 			};
 		});
 
@@ -99,36 +94,22 @@ export async function getStaticProps() {
 			edges {
 				node {
 					id
-          title
-          description
-          ... on Product {
-            media(first: 3) {
-              edges{
-                node{
-                  ...on MediaImage {
-                    image {
-                      originalSrc
-                    }
-                  }
-                }
-              }
-            }  
-          }
-          variants(first: 3) {
-            edges {
-              node {
-                id
-                title
-                priceV2 {
-                  amount 
-                }
-              }
-            }   
-          }
-        }
-      }
-    }
-  }
+					title
+					description
+					variants(first: 1) {
+						edges {
+							node {
+								id
+								priceV2 {
+									amount 
+								}
+							}
+						}   
+					}
+        		}
+      		}
+    	}
+  	}
 	`;
 
 	const shopify = await shopifyQuery(query, null);

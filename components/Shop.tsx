@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import beef from "../imgs/beef.png";
-import { CartType } from "../pages";
+import { CartType } from "../utils/types";
 import Card from "./Card";
 
 interface Props {
