@@ -1,11 +1,12 @@
-type lines = {
-	edges: Array<object>
-}
+// type lines = {
+// 	edges: Array<object>
+// }
 
 export type CartType = {
 	checkoutUrl: string,
 	id: string,
-	lines?: lines,
+	totalAmount: number,
+	lines: Array<object>,
 }
 
 export type ProductType = {

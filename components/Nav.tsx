@@ -210,8 +210,8 @@ export default function Nav({ localCart }: Props) {
 						height: calc(100vh - 250px);
 					`}
 				>
-					{localCart.lines != undefined ? (
-						localCart.lines.edges.map((item: any, count: number) => {
+					{localCart.lines ? (
+						localCart.lines.map((item: any, count: number) => {
 							return <CartItem item={item} quantity={parseInt(item.node.quantity)} key={count} />;
 						})
 					) : (
@@ -237,7 +237,7 @@ export default function Nav({ localCart }: Props) {
 								font-weight: 600;
 							`}
 						>
-							$42
+							{`$${localCart.totalAmount}`}
 						</span>
 					</div>
 					<div

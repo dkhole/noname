@@ -38,18 +38,6 @@ export default async function handler(req: any, res: any) {
                                   amount
                                   currencyCode
                                 }
-                                subtotalAmount {
-                                  amount
-                                  currencyCode
-                                }
-                                totalTaxAmount {
-                                  amount
-                                  currencyCode
-                                }
-                                totalDutyAmount {
-                                  amount
-                                  currencyCode
-                                }
                             }
                         }
                         userErrors {
@@ -90,18 +78,6 @@ export default async function handler(req: any, res: any) {
                             }
                             estimatedCost {
                                 totalAmount {
-                                  amount
-                                  currencyCode
-                                }
-                                subtotalAmount {
-                                  amount
-                                  currencyCode
-                                }
-                                totalTaxAmount {
-                                  amount
-                                  currencyCode
-                                }
-                                totalDutyAmount {
                                   amount
                                   currencyCode
                                 }

@@ -5,53 +5,61 @@ import Info from "../../components/Info";
 import Image from "next/image";
 import beef from "../../imgs/beef.png";
 import { useEffect, useState } from "react";
-import { CartType } from "../../utils/types/types";
+import { CartType } from "../../utils/types";
 
 export default function Shop() {
-	const [localCart, setLocalCart] = useState<CartType>({	
+	const [localCart, setLocalCart] = useState<CartType>({
 		checkoutUrl: "",
 		id: "",
-		lines: undefined});
+		totalAmount: 0,
+		lines: [],
+	});
 
 	//save new cart in state and update local storage
-	const updateLocal = (resNew: CartType) => {
-		setLocalCart(resNew);
-		window.localStorage.setItem('nonameCart', JSON.stringify(resNew))
-	}
+	const updateLocal = (resNew: any) => {
+		const newCart = {
+			checkoutUrl: resNew.checkoutUrl,
+			id: resNew.id,
+			totalAmount: parseInt(resNew.estimatedCost.totalAmount.amount),
+			lines: resNew.lines.edges,
+		};
+		setLocalCart(newCart);
+		window.localStorage.setItem("nonameCart", JSON.stringify(newCart));
+	};
 
-	const addToCart = async(e: any, cartId: string, merchId: string) => {
+	const addToCart = async (e: any, cartId: string, merchId: string) => {
 		e.stopPropagation();
-		const res = await fetch('http://localhost:3000/api/cart', {method: "POST", body: JSON.stringify({cartId: cartId, merchId: merchId})});
+		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId: cartId, merchId: merchId }) });
 		const resNew = await res.json();
-		if(resNew.data.cartLinesAdd) {
+		if (resNew.data.cartLinesAdd) {
 			updateLocal(resNew.data.cartLinesAdd.cart);
 		}
-	}
+	};
 
 	useEffect(() => {
 		const storage = window.localStorage;
-		let cart: any = storage.getItem('nonameCart');
+		let cart: any = storage.getItem("nonameCart");
 		//if cart doesnt exist create one save cart in state
-		const createCart = async() => {
-			const res = await fetch('http://localhost:3000/api/cart',{method: 'POST', body: ''});
+		const createCart = async () => {
+			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
 			const resNew = await res.json();
-			if(resNew.data.cartCreate) {
+			if (resNew.data.cartCreate) {
 				updateLocal(resNew.data.cartCreate.cart);
 			}
-		}
+		};
 		if (!cart) {
 			//create cart, have to do this for async function
 			const createCartFunction = async () => {
 				await createCart();
-			}
-			createCartFunction();		
+			};
+			createCartFunction();
 		} else {
 			//save in local state
 			const parsedCart = JSON.parse(cart);
 			setLocalCart(parsedCart);
 		}
 	}, []);
-	
+
 	return (
 		<div
 			css={css`
@@ -155,7 +163,9 @@ export default function Shop() {
 								color: white;
 							}
 						`}
-						onClick={(e) => {addToCart(e, localCart.id, "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==")}}
+						onClick={(e) => {
+							addToCart(e, localCart.id, "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==");
+						}}
 					>
 						ADD TO BAG
 						<span

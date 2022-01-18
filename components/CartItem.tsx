@@ -15,6 +15,8 @@ export default function CartItem({ item, quantity }: Props) {
 		setItemQuantity(quantity);
 	}, [quantity]);
 
+	console.log(item);
+
 	return (
 		<div
 			css={css`
@@ -28,6 +30,7 @@ export default function CartItem({ item, quantity }: Props) {
 
 			<div
 				css={css`
+					position: relative;
 					display: flex;
 					flex-direction: column;
 					margin-left: 25px;
@@ -56,6 +59,16 @@ export default function CartItem({ item, quantity }: Props) {
 				>
 					500g
 				</span>
+				<div
+					css={css`
+						position: absolute;
+						top: 15px;
+						right: 10px;
+						font-size: 19px;
+					`}
+				>
+					<span>{`$${quantity * item.node.merchandise.product.priceRange.minVariantPrice.amount}`}</span>
+				</div>
 				<div
 					css={css`
 						margin-top: 10px;

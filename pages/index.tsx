@@ -16,13 +16,20 @@ const Home: NextPage = ({ shopify }: any) => {
 	const [localCart, setLocalCart] = useState<CartType>({
 		checkoutUrl: "",
 		id: "",
-		lines: undefined,
+		totalAmount: 0,
+		lines: [],
 	});
 
 	//save new cart in state and update local storage
-	const updateLocal = (resNew: CartType) => {
-		setLocalCart(resNew);
-		window.localStorage.setItem("nonameCart", JSON.stringify(resNew));
+	const updateLocal = (resNew: any) => {
+		const newCart = {
+			checkoutUrl: resNew.checkoutUrl,
+			id: resNew.id,
+			totalAmount: parseInt(resNew.estimatedCost.totalAmount.amount),
+			lines: resNew.lines.edges,
+		};
+		setLocalCart(newCart);
+		window.localStorage.setItem("nonameCart", JSON.stringify(newCart));
 	};
 
 	const addToCart = async (e: any, cartId: string, merchId: string) => {
