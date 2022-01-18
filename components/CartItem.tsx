@@ -5,16 +5,16 @@ import { useEffect, useState } from "react";
 import beef from "../imgs/beef.png";
 
 interface Props {
-	quantity: number,
+	item: any;
+	quantity: number;
 }
 
-export default function CartItem({ quantity }: Props) {
+export default function CartItem({ item, quantity }: Props) {
 	const [itemQuantity, setItemQuantity] = useState<number>(0);
 	useEffect(() => {
 		setItemQuantity(quantity);
 	}, [quantity]);
 
-	console.log(itemQuantity);
 	return (
 		<div
 			css={css`
@@ -40,14 +40,14 @@ export default function CartItem({ quantity }: Props) {
 						font-size: 14px;
 					`}
 				>
-					CHICKEN + BEEF RECIPE
+					{item.node.merchandise.product.title}
 				</h4>
 				<span
 					css={css`
 						font-size: 12px;
 					`}
 				>
-					$7
+					{`$${item.node.merchandise.product.priceRange.minVariantPrice.amount}`}
 				</span>
 				<span
 					css={css`

@@ -13,43 +13,44 @@ import { CartType, ProductType } from "../utils/types";
 
 const Home: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<ProductType>();
-	const [localCart, setLocalCart] = useState<CartType>({	
+	const [localCart, setLocalCart] = useState<CartType>({
 		checkoutUrl: "",
 		id: "",
-		lines: undefined});
-	
+		lines: undefined,
+	});
+
 	//save new cart in state and update local storage
 	const updateLocal = (resNew: CartType) => {
 		setLocalCart(resNew);
-		window.localStorage.setItem('nonameCart', JSON.stringify(resNew))
-	}
+		window.localStorage.setItem("nonameCart", JSON.stringify(resNew));
+	};
 
-	const addToCart = async(e: any, cartId: string, merchId: string) => {
+	const addToCart = async (e: any, cartId: string, merchId: string) => {
 		e.stopPropagation();
-		const res = await fetch('http://localhost:3000/api/cart', {method: "POST", body: JSON.stringify({cartId: cartId, merchId: merchId})});
+		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId: cartId, merchId: merchId }) });
 		const resNew = await res.json();
-		if(resNew.data.cartLinesAdd) {
+		if (resNew.data.cartLinesAdd) {
 			updateLocal(resNew.data.cartLinesAdd.cart);
 		}
-	}
+	};
 
 	useEffect(() => {
 		const storage = window.localStorage;
-		let cart: any = storage.getItem('nonameCart');
+		let cart: any = storage.getItem("nonameCart");
 		//if cart doesnt exist create one save cart in state
-		const createCart = async() => {
-			const res = await fetch('http://localhost:3000/api/cart',{method: 'POST', body: ''});
+		const createCart = async () => {
+			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
 			const resNew = await res.json();
-			if(resNew.data.cartCreate) {
+			if (resNew.data.cartCreate) {
 				updateLocal(resNew.data.cartCreate.cart);
 			}
-		}
+		};
 		if (!cart) {
 			//create cart, have to do this for async function
 			const createCartFunction = async () => {
 				await createCart();
-			}
-			createCartFunction();		
+			};
+			createCartFunction();
 		} else {
 			//save in local state
 			const parsedCart = JSON.parse(cart);
@@ -77,7 +78,7 @@ const Home: NextPage = ({ shopify }: any) => {
 		<div>
 			<Nav localCart={localCart} />
 			<Landing />
-			<Shop addToCart={addToCart} localCart={localCart}/>
+			<Shop addToCart={addToCart} localCart={localCart} />
 			<Values />
 			<Email />
 			<Footer />

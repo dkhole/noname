@@ -18,8 +18,37 @@ export default async function handler(req: any, res: any) {
                                     node {
                                         id
                                         quantity
-
+                                        merchandise {
+                                            ... on ProductVariant {
+                                              product {
+                                                title
+                                                priceRange {
+                                                    minVariantPrice {
+                                                        amount
+                                                    }
+                                                }
+                                              }
+                                            }
+                                        }
                                     }
+                                }
+                            }
+                            estimatedCost {
+                                totalAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                subtotalAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                totalTaxAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                totalDutyAmount {
+                                  amount
+                                  currencyCode
                                 }
                             }
                         }
@@ -57,6 +86,24 @@ export default async function handler(req: any, res: any) {
                                         id
                                         quantity
                                     }
+                                }
+                            }
+                            estimatedCost {
+                                totalAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                subtotalAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                totalTaxAmount {
+                                  amount
+                                  currencyCode
+                                }
+                                totalDutyAmount {
+                                  amount
+                                  currencyCode
                                 }
                             }
                         }

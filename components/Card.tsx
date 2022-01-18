@@ -10,11 +10,10 @@ interface CardProps {
 	img: StaticImageData;
 	title: string;
 	description: string;
-	price: string;
+	price: number;
 }
 
 export default function Card({ addToCart, localCart, merchId, img, title, description, price }: CardProps) {
-
 	return (
 		<div
 			css={css`
@@ -56,7 +55,7 @@ export default function Card({ addToCart, localCart, merchId, img, title, descri
 						font-size: 12px;
 					`}
 				>
-					{price}
+					{"$" + price}
 				</span>
 				<br />
 				<span

@@ -9,7 +9,7 @@ import Link from "next/link";
 import { CartType } from "../utils/types";
 
 interface Props {
-	localCart: CartType
+	localCart: CartType;
 }
 
 export default function Nav({ localCart }: Props) {
@@ -210,13 +210,13 @@ export default function Nav({ localCart }: Props) {
 						height: calc(100vh - 250px);
 					`}
 				>
-					{
-						localCart.lines ?
-							(localCart.lines.edges.map((item: any, count: number) => {
-								return <CartItem quantity={parseInt(item.node.quantity)} key={count} />;
-							})) : <div></div>
-					}
-
+					{localCart.lines != undefined ? (
+						localCart.lines.edges.map((item: any, count: number) => {
+							return <CartItem item={item} quantity={parseInt(item.node.quantity)} key={count} />;
+						})
+					) : (
+						<div></div>
+					)}
 				</div>
 				<div
 					css={css`
@@ -246,8 +246,8 @@ export default function Nav({ localCart }: Props) {
 							padding: 20px 0;
 							text-align: center;
 						`}
-					>{
-						localCart.checkoutUrl ? (
+					>
+						{localCart.checkoutUrl ? (
 							<Link href={localCart.checkoutUrl} passHref>
 								<button
 									css={css`
@@ -263,9 +263,10 @@ export default function Nav({ localCart }: Props) {
 								>
 									CHECKOUT
 								</button>
-							</Link>) : (<div></div>)
-					}
-						
+							</Link>
+						) : (
+							<div></div>
+						)}
 					</div>
 				</div>
 			</div>
