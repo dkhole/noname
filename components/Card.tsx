@@ -6,6 +6,7 @@ import { CartType } from "../utils/types";
 interface CardProps {
 	addToCart: Function;
 	localCart: CartType;
+	setLocalCart: Function;
 	merchId: string;
 	img: StaticImageData;
 	title: string;
@@ -13,7 +14,7 @@ interface CardProps {
 	price: number;
 }
 
-export default function Card({ addToCart, localCart, merchId, img, title, description, price }: CardProps) {
+export default function Card({ addToCart, localCart, setLocalCart, merchId, img, title, description, price }: CardProps) {
 	return (
 		<div
 			css={css`
@@ -59,7 +60,7 @@ export default function Card({ addToCart, localCart, merchId, img, title, descri
 				</span>
 				<br />
 				<span
-					onClick={(e) => addToCart(e, localCart.id, merchId)}
+					onClick={(e) => addToCart(e, localCart.id, merchId, setLocalCart)}
 					css={css`
 						font-weight: 600;
 						font-size: 12px;

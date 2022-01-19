@@ -10,10 +10,12 @@ import { CartType } from "../utils/types";
 
 interface NavProps {
 	localCart: CartType;
+	setLocalCart: Function;
 	removeLine: Function;
+	updateLine: Function;
 }
 
-export default function Nav({ localCart, removeLine }: NavProps) {
+export default function Nav({ localCart, setLocalCart, removeLine, updateLine }: NavProps) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -75,6 +77,7 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 	const toggleCart = () => {
 		isCartOpen ? setIsCartOpen(false) : setIsCartOpen(true);
 	};
+
 	return (
 		<nav
 			css={css`
@@ -97,6 +100,9 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 						left: 20px;
 						font-weight: 600;
 						cursor: pointer;
+						&:hover {
+							color: red;
+						}
 					`}
 					onClick={toggleNav}
 				>
@@ -150,6 +156,9 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 					<Image
 						src={nonameLogo}
 						alt="Noname logo"
+						css={css`
+							cursor: pointer;
+						`}
 						// width={500} automatically provided
 						// height={500} automatically provided
 						// blurDataURL="data:..." automatically provided
@@ -175,6 +184,9 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 						cursor: pointer;
 						margin: 0;
 						padding: 0;
+						&:hover {
+							color: red;
+						}
 					`}
 					onClick={toggleCart}
 				>
@@ -213,7 +225,7 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 				>
 					{localCart.lines ? (
 						localCart.lines.map((item: any, count: number) => {
-							return <CartItem cartId={localCart.id} removeLine={removeLine} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
+							return <CartItem cartId={localCart.id} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
 						})
 					) : (
 						<div></div>
@@ -260,6 +272,10 @@ export default function Nav({ localCart, removeLine }: NavProps) {
 										font-weight: 600;
 										box-shadow: 4px 5px #2b6e6c;
 										cursor: pointer;
+										&:hover {
+											background-color: #2b6e6c;
+											color: white;
+										}
 									`}
 								>
 									CHECKOUT

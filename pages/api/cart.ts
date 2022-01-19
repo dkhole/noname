@@ -61,7 +61,7 @@ export default async function handler(req: any, res: any) {
             const shopify = await shopifyQuery(query, variables);
             res.status(201).json(shopify);
         } else {
-         //create cart
+            //create cart
             const query = `
                 mutation cartCreateMutation($cartInput: CartInput) {
                     cartCreate(input: $cartInput) {
@@ -78,8 +78,8 @@ export default async function handler(req: any, res: any) {
                             }
                             estimatedCost {
                                 totalAmount {
-                                  amount
-                                  currencyCode
+                                    amount
+                                    currencyCode
                                 }
                             }
                         }
@@ -90,30 +90,70 @@ export default async function handler(req: any, res: any) {
             res.status(201).json(shopify);
         } 
     } else if(req.method === 'PUT') {
+        const data = JSON.parse(req.body);
+        const cartId = data.cartId;
+        const lineId = data.lineId;
+        const quantity = data.quantity;
+
         const query = `
         mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
             cartLinesUpdate(cartId: $cartId, lines: $lines) {
                 cart {
                     id
+                    checkoutUrl
+                    lines(first:10) {
+                        edges {
+                            node {
+                                id
+                                quantity
+                                merchandise {
+                                    ... on ProductVariant {
+                                        product {
+                                        title
+                                        priceRange {
+                                            minVariantPrice {
+                                                amount
+                                            }
+                                        }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    estimatedCost {
+                        totalAmount {
+                            amount
+                            currencyCode
+                        }
+                    }
                 }
                 userErrors {
                     code
                     field
                     message
                 }
-                }
             }
+          }
         `;
-        const shopify = await shopifyQuery(query, null);
-        res.status(200).json(shopify);
+        const variables = 
+        {
+            "cartId": cartId,
+            "lines": {
+                "id": lineId,
+                "quantity": quantity,
+            }
+        };
+        
+        const shopify = await shopifyQuery(query, variables);
+        res.status(201).json(shopify);
     } else if(req.method === 'DELETE') {
         //need cart id and line id
         //add item to cart
         const data = JSON.parse(req.body);
         const cartId = data.cartId;
         const lineId = data.lineId;
-        console.log(cartId)
-        console.log(lineId)
+
         const query = `
             mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
                 cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
@@ -166,7 +206,7 @@ export default async function handler(req: any, res: any) {
         const shopify = await shopifyQuery(query, variables);
         res.status(201).json(shopify);
     } else {
-    res.status(200).json("hello");
+        res.status(200).json("hello");
     }
 
 	// if (localCart.length < 1) {

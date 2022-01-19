@@ -6,18 +6,30 @@ import beef from "../imgs/beef.png";
 
 interface Props {
 	cartId: string;
+	setLocalCart: Function;
 	removeLine: Function;
+	updateLine: Function;
 	item: any;
 	quantity: number;
 }
 
-export default function CartItem({ cartId, removeLine, item, quantity }: Props) {
+export default function CartItem({ cartId, setLocalCart, removeLine, updateLine, item, quantity }: Props) {
 	const [itemQuantity, setItemQuantity] = useState<number>(0);
+	const [revealUpdate, setRevealUpdate] = useState<boolean>(false);
+
 	useEffect(() => {
 		setItemQuantity(quantity);
 	}, [quantity]);
 
-	console.log(item);
+	useEffect(() => {
+		if (itemQuantity !== quantity) {
+			setRevealUpdate(true);
+		} else {
+			setRevealUpdate(false);
+		}
+	}, [itemQuantity]);
+
+	//console.log(item);
 
 	return (
 		<div
@@ -93,6 +105,28 @@ export default function CartItem({ cartId, removeLine, item, quantity }: Props) 
 						value={itemQuantity}
 						onChange={(e) => setItemQuantity(parseInt(e.target.value))}
 					/>
+					{revealUpdate ? (
+						<button
+							css={css`
+								background: none;
+								border: none;
+								font-size: 10px;
+								text-decoration: underline;
+								cursor: pointer;
+								&:hover {
+									color: #f58f83;
+								}
+							`}
+							onClick={(e: any) => {
+								setRevealUpdate(false);
+								updateLine(e, cartId, item.node.id, itemQuantity, setLocalCart);
+							}}
+						>
+							Update Line
+						</button>
+					) : (
+						<div></div>
+					)}
 					<button
 						css={css`
 							background: none;
@@ -100,8 +134,15 @@ export default function CartItem({ cartId, removeLine, item, quantity }: Props) 
 							font-size: 10px;
 							text-decoration: underline;
 							cursor: pointer;
+							margin-top: 5px;
+							margin-right: 5px;
+							padding: 0;
+							height: 12px;
+							&:hover {
+								color: #f58f83;
+							}
 						`}
-						onClick={(e: any) => removeLine(e, cartId, item.node.id)}
+						onClick={(e: any) => removeLine(e, cartId, item.node.id, setLocalCart)}
 					>
 						Remove
 					</button>

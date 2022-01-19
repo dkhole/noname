@@ -1,15 +1,12 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
-import Card from "../components/Card";
+import Footer from "../components/Footer";
 import Nav from "../components/Nav";
-import beef from "../imgs/beef.png";
+import { removeLine, updateLine, updateLocal } from "../utils/cartHelpers";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
-import { updateLocal, addToCart, removeLine, updateLine } from "../utils/cartHelpers";
 
-const Products: NextPage = ({ shopify }: any) => {
+const Faq: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
 	const [localCart, setLocalCart] = useState<CartType>({
 		checkoutUrl: "",
@@ -55,52 +52,17 @@ const Products: NextPage = ({ shopify }: any) => {
 
 		setProducts(items);
 	}, [shopify.data.products.edges]);
-
-	console.log(products);
-	console.log(localCart);
-
 	return (
 		<div>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
-			<div
-				css={css`
-					padding: 0 35px;
-					padding-top: 110px;
-					font-family: Montserrat;
-					text-align: center;
-				`}
-			>
-				<h1
-					css={css`
-						margin: 0;
-						padding: 0;
-						font-weight: 600;
-						font-size: 27px;
-					`}
-				>
-					All Products
-				</h1>
-				<div>
-					{products ? (
-						products.map((product: ProductType, index: number) => {
-							return <Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={product.merchId} img={beef} title={product.title} description="Our #1 Pick for Picky Eaters!" price={product.price} key={index} />;
-						})
-					) : (
-						<div></div>
-					)}
-					{/* <Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" /> */}
-				</div>
-			</div>
+
+			<Footer />
 		</div>
 	);
 };
 
 export async function getStaticProps() {
 	// Call an external API endpoint to get posts
-
 	const query = `
 	{
 		products(first: 5) {
@@ -134,4 +96,4 @@ export async function getStaticProps() {
 	};
 }
 
-export default Products;
+export default Faq;

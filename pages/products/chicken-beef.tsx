@@ -6,6 +6,7 @@ import Image from "next/image";
 import beef from "../../imgs/beef.png";
 import { useEffect, useState } from "react";
 import { CartType } from "../../utils/types";
+import { updateLocal, addToCart, removeLine, updateLine } from "../../utils/cartHelpers";
 
 export default function Shop() {
 	const [localCart, setLocalCart] = useState<CartType>({
@@ -15,36 +16,6 @@ export default function Shop() {
 		lines: [],
 	});
 
-	//save new cart in state and update local storage
-	const updateLocal = (resNew: any) => {
-		const newCart = {
-			checkoutUrl: resNew.checkoutUrl,
-			id: resNew.id,
-			totalAmount: parseInt(resNew.estimatedCost.totalAmount.amount),
-			lines: resNew.lines.edges,
-		};
-		setLocalCart(newCart);
-		window.localStorage.setItem("nonameCart", JSON.stringify(newCart));
-	};
-
-	const addToCart = async (e: any, cartId: string, merchId: string) => {
-		e.stopPropagation();
-		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId: cartId, merchId: merchId }) });
-		const resNew = await res.json();
-		if (resNew.data.cartLinesAdd) {
-			updateLocal(resNew.data.cartLinesAdd.cart);
-		}
-	};
-
-	const removeLine = async (e: any, cartId: string, lineId: string) => {
-		e.stopPropagation();
-		const res = await fetch("http://localhost:3000/api/cart", { method: "DELETE", body: JSON.stringify({ cartId, lineId }) });
-		const resNew = await res.json();
-		if (resNew.data.cartLinesRemove) {
-			updateLocal(resNew.data.cartLinesRemove.cart);
-		}
-	};
-
 	useEffect(() => {
 		const storage = window.localStorage;
 		let cart: any = storage.getItem("nonameCart");
@@ -53,7 +24,7 @@ export default function Shop() {
 			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
 			const resNew = await res.json();
 			if (resNew.data.cartCreate) {
-				updateLocal(resNew.data.cartCreate.cart);
+				updateLocal(resNew.data.cartCreate.cart, setLocalCart);
 			}
 		};
 		if (!cart) {
@@ -76,7 +47,7 @@ export default function Shop() {
 				text-align: center;
 			`}
 		>
-			<Nav localCart={localCart} removeLine={removeLine} />
+			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
 			<div
 				css={css`
 					padding-top: 125px;
@@ -173,7 +144,7 @@ export default function Shop() {
 							}
 						`}
 						onClick={(e) => {
-							addToCart(e, localCart.id, "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==");
+							addToCart(e, localCart.id, "Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==", setLocalCart);
 						}}
 					>
 						ADD TO BAG

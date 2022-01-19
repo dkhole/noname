@@ -27,3 +27,12 @@
 			updateLocal(resNew.data.cartLinesRemove.cart, setLocalCart);
 		}
 	};
+
+	export const updateLine = async(e: any, cartId: string, lineId: string, quantity: number, setLocalCart: Function) => {
+		e.stopPropagation();
+		const res = await fetch("http://localhost:3000/api/cart", { method: "PUT", body: JSON.stringify({ cartId, lineId, quantity }) });
+		const resNew = await res.json();
+		if (resNew.data.cartLinesUpdate) {
+			updateLocal(resNew.data.cartLinesUpdate.cart, setLocalCart);
+		}
+	}

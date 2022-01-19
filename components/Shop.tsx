@@ -2,15 +2,17 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import beef from "../imgs/beef.png";
-import { CartType } from "../utils/types";
+import { CartType, ProductType } from "../utils/types";
 import Card from "./Card";
 
 interface Props {
 	addToCart: Function;
 	localCart: CartType;
+	setLocalCart: Function;
+	products: ProductType[];
 }
 
-export default function Shop({ addToCart, localCart }: Props) {
+export default function Shop({ addToCart, localCart, setLocalCart, products }: Props) {
 	return (
 		<div
 			css={css`
@@ -27,18 +29,24 @@ export default function Shop({ addToCart, localCart }: Props) {
 				Shop All
 			</h1>
 			<div>
-				<Link href="/products/chicken-beef">
-					<a
-						css={css`
-							text-decoration: none;
-							cursor: pointer;
-						`}
-					>
-						<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price={7} />
-					</a>
-				</Link>
-				<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price={7} />
-				<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price={7} />
+				{products.length > 0 ? (
+					<>
+						<Link href="/products/chicken-beef">
+							<a
+								css={css`
+									text-decoration: none;
+									cursor: pointer;
+								`}
+							>
+								<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[0].merchId} img={beef} title={products[0].title} description="Our #1 Pick for Picky Eaters!" price={products[0].price} />
+							</a>
+						</Link>
+						<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[1].merchId} img={beef} title={products[1].title} description="Our #1 Pick for Picky Eaters!" price={products[1].price} />
+						<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[2].merchId} img={beef} title={products[2].title} description="Our #1 Pick for Picky Eaters!" price={products[2].price} />
+					</>
+				) : (
+					<div></div>
+				)}
 			</div>
 		</div>
 	);
