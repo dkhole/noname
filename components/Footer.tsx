@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import Link from "next/link";
 
 export default function Footer() {
 	return (
@@ -17,13 +18,57 @@ export default function Footer() {
 				`}
 			>
 				<h4>THE USEFUL BITS</h4>
-				<span>Contact Us</span>
+				<span
+					css={css`
+						cursor: not-allowed;
+					`}
+				>
+					Contact Us
+				</span>
 				<br />
-				<span>FAQ</span>
+				<Link href="/faq">
+					<a
+						css={css`
+							text-decoration: none;
+							cursor: pointer;
+							&:hover {
+								color: #f58f83;
+							}
+						`}
+					>
+						<span>FAQ</span>
+					</a>
+				</Link>
+
 				<br />
-				<span>Shipping</span>
+				<Link href="/faq">
+					<a
+						css={css`
+							text-decoration: none;
+							cursor: pointer;
+							&:hover {
+								color: #f58f83;
+							}
+						`}
+					>
+						<span>Shipping</span>
+					</a>
+				</Link>
+
 				<br />
-				<span>Picky Pup Guarantee</span>
+				<Link href="/faq">
+					<a
+						css={css`
+							text-decoration: none;
+							cursor: pointer;
+							&:hover {
+								color: #f58f83;
+							}
+						`}
+					>
+						<span>Picky Pup Guarantee</span>
+					</a>
+				</Link>
 			</div>
 			<div
 				css={css`
@@ -31,9 +76,21 @@ export default function Footer() {
 				`}
 			>
 				<h4>THE FRIENDLY BITS</h4>
-				<span>Our Story</span>
+				<span
+					css={css`
+						cursor: not-allowed;
+					`}
+				>
+					Our Story
+				</span>
 				<br />
-				<span>Testimonials</span>
+				<span
+					css={css`
+						cursor: not-allowed;
+					`}
+				>
+					Testimonials
+				</span>
 			</div>
 		</div>
 	);

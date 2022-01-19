@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { css } from "@emotion/react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";

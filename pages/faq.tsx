@@ -1,10 +1,14 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
+import FaqInfo from "../components/FaqInfo";
 import { removeLine, updateLine, updateLocal } from "../utils/cartHelpers";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
+import Email from "../components/Email";
 
 const Faq: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -53,9 +57,42 @@ const Faq: NextPage = ({ shopify }: any) => {
 		setProducts(items);
 	}, [shopify.data.products.edges]);
 	return (
-		<div>
+		<div
+			css={css`
+				font-family: Montserrat;
+			`}
+		>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
-
+			<div
+				css={css`
+					padding-top: 70px;
+				`}
+			>
+				<h2
+					css={css`
+						margin: 0;
+						padding: 40px;
+					`}
+				>
+					FAQs
+				</h2>
+				<div>
+					<FaqInfo title="Product + Ingredients" blocks={[{ heading: "Coming Soon", body: "" }]} />
+					<FaqInfo
+						title="Shipping + Delivery"
+						blocks={[
+							{ heading: "How is my order delivered?", body: "No Name Dog Food is delivered frozen in insulated packaging. Don’t worry about being home to accept your order! Just pop the food in the freezer as soon as you can. " },
+							{ heading: "When will my order be delivered?", body: "We offer free shipping on all orders over $50.\n\n Shipping on all orders under $50 is $10.\n\n Orders are delivered 2-4 business days from ordering. " },
+						]}
+					/>
+					<FaqInfo
+						title="Picky Pup Guarantee"
+						blocks={[{ heading: "My dog is really picky!", body: "We’re so confident your pup will love our food, we’ll give you a 100% refund if they aren’t licking their bowls clean.\n\n This is only available on your first order and is limited at $50 AUD, excluding shipping. " }]}
+					/>
+					<FaqInfo title="No Dice" blocks={[{ heading: "", body: "No luck finding the answer to your question?\n\n Send us an email:\n kevin@nonamedogfood.com.au" }]} />
+				</div>
+			</div>
+			<Email />
 			<Footer />
 		</div>
 	);
