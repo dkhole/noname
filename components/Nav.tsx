@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import nonameLogo from "../imgs/noname.png";
 import cart from "../imgs/cart.svg";
@@ -18,6 +18,15 @@ interface NavProps {
 export default function Nav({ localCart, setLocalCart, removeLine, updateLine }: NavProps) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
+	const [cartQuantity, setCartQuantity] = useState(0);
+
+	useEffect(() => {
+		let count = 0;
+		localCart.lines.map((line: any) => {
+			count += line.node.quantity;
+		});
+		setCartQuantity(count);
+	}, [localCart]);
 
 	const hamburgerSpanStyle = css`
 		display: block;
@@ -166,14 +175,58 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 					/>
 				</div>
 			</Link>
-			<Image
-				src={cart}
-				alt="Shopping cart logo"
-				css={css`
-					cursor: pointer;
-				`}
-				onClick={toggleCart}
-			/>
+			{cartQuantity > 0 ? (
+				<div
+					css={css`
+						position: relative;
+					`}
+				>
+					<div
+						css={css`
+							position: absolute;
+							top: 10px;
+							right: -8px;
+							z-index: 1;
+						`}
+					>
+						<span
+							css={css`
+								height: 17.5px;
+								width: 17.5px;
+								background-color: red;
+								border-radius: 50%;
+								display: inline-block;
+								font-size: 10px;
+								font-weight: 800;
+								font-family: Montserrat;
+								color: white;
+								text-align: center;
+								line-height: 18.5px;
+							`}
+						>
+							{cartQuantity}
+						</span>
+					</div>
+					<Image
+						src={cart}
+						alt="Shopping cart logo"
+						css={css`
+							cursor: pointer;
+						`}
+						onClick={toggleCart}
+					/>
+				</div>
+			) : (
+				<Image
+					src={cart}
+					alt="Shopping cart logo"
+					css={css`
+						cursor: pointer;
+					`}
+					onClick={toggleCart}
+				/>
+			)}
+
 			<div css={cartStyles(isCartOpen)}>
 				<div
 					css={css`
