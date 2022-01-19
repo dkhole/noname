@@ -8,11 +8,12 @@ import CartItem from "./CartItem";
 import Link from "next/link";
 import { CartType } from "../utils/types";
 
-interface Props {
+interface NavProps {
 	localCart: CartType;
+	removeLine: Function;
 }
 
-export default function Nav({ localCart }: Props) {
+export default function Nav({ localCart, removeLine }: NavProps) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 
@@ -212,7 +213,7 @@ export default function Nav({ localCart }: Props) {
 				>
 					{localCart.lines ? (
 						localCart.lines.map((item: any, count: number) => {
-							return <CartItem item={item} quantity={parseInt(item.node.quantity)} key={count} />;
+							return <CartItem cartId={localCart.id} removeLine={removeLine} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
 						})
 					) : (
 						<div></div>

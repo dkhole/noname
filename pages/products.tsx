@@ -38,6 +38,15 @@ const Products: NextPage = ({ shopify }: any) => {
 		}
 	};
 
+	const removeLine = async (e: any, cartId: string, lineId: string) => {
+		e.stopPropagation();
+		const res = await fetch("http://localhost:3000/api/cart", { method: "DELETE", body: JSON.stringify({ cartId, lineId }) });
+		const resNew = await res.json();
+		if (resNew.data.cartLinesRemove) {
+			updateLocal(resNew.data.cartLinesRemove.cart);
+		}
+	};
+
 	useEffect(() => {
 		const storage = window.localStorage;
 		let cart: any = storage.getItem("nonameCart");
@@ -81,7 +90,7 @@ const Products: NextPage = ({ shopify }: any) => {
 
 	return (
 		<div>
-			<Nav localCart={localCart} />
+			<Nav localCart={localCart} removeLine={removeLine} />
 			<div
 				css={css`
 					padding: 0 35px;

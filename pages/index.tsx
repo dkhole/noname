@@ -34,10 +34,19 @@ const Home: NextPage = ({ shopify }: any) => {
 
 	const addToCart = async (e: any, cartId: string, merchId: string) => {
 		e.stopPropagation();
-		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId: cartId, merchId: merchId }) });
+		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId, merchId }) });
 		const resNew = await res.json();
 		if (resNew.data.cartLinesAdd) {
 			updateLocal(resNew.data.cartLinesAdd.cart);
+		}
+	};
+
+	const removeLine = async (e: any, cartId: string, lineId: string) => {
+		e.stopPropagation();
+		const res = await fetch("http://localhost:3000/api/cart", { method: "DELETE", body: JSON.stringify({ cartId, lineId }) });
+		const resNew = await res.json();
+		if (resNew.data.cartLinesRemove) {
+			updateLocal(resNew.data.cartLinesRemove.cart);
 		}
 	};
 
@@ -83,7 +92,7 @@ const Home: NextPage = ({ shopify }: any) => {
 	console.log(localCart);
 	return (
 		<div>
-			<Nav localCart={localCart} />
+			<Nav localCart={localCart} removeLine={removeLine} />
 			<Landing />
 			<Shop addToCart={addToCart} localCart={localCart} />
 			<Values />

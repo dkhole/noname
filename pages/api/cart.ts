@@ -90,25 +90,84 @@ export default async function handler(req: any, res: any) {
             res.status(201).json(shopify);
         } 
     } else if(req.method === 'PUT') {
-            const query = `
-            mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
-                cartLinesUpdate(cartId: $cartId, lines: $lines) {
+        const query = `
+        mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) {
+            cartLinesUpdate(cartId: $cartId, lines: $lines) {
+                cart {
+                    id
+                }
+                userErrors {
+                    code
+                    field
+                    message
+                }
+                }
+            }
+        `;
+        const shopify = await shopifyQuery(query, null);
+        res.status(200).json(shopify);
+    } else if(req.method === 'DELETE') {
+        //need cart id and line id
+        //add item to cart
+        const data = JSON.parse(req.body);
+        const cartId = data.cartId;
+        const lineId = data.lineId;
+        console.log(cartId)
+        console.log(lineId)
+        const query = `
+            mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) {
+                cartLinesRemove(cartId: $cartId, lineIds: $lineIds) {
                     cart {
                         id
+                        checkoutUrl
+                        lines(first:10) {
+                            edges {
+                                node {
+                                    id
+                                    quantity
+                                    merchandise {
+                                        ... on ProductVariant {
+                                            product {
+                                            title
+                                            priceRange {
+                                                minVariantPrice {
+                                                    amount
+                                                }
+                                            }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        estimatedCost {
+                            totalAmount {
+                                amount
+                                currencyCode
+                            }
+                        }
                     }
                     userErrors {
                         code
                         field
                         message
                     }
-                    }
                 }
-            `;
-            const shopify = await shopifyQuery(query, null);
-            res.status(200).json(shopify);
-        } else {
-        res.status(200).json("hello");
-        }
+            }
+        `
+        const variables = 
+        {
+            "cartId": cartId,
+            "lineIds": [
+                lineId
+            ]
+        };
+        
+        const shopify = await shopifyQuery(query, variables);
+        res.status(201).json(shopify);
+    } else {
+    res.status(200).json("hello");
+    }
 
 	// if (localCart.length < 1) {
 	// 	const query = `mutation cartCreateMutation($cartInput: CartInput) {

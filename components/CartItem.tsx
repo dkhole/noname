@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 import beef from "../imgs/beef.png";
 
 interface Props {
+	cartId: string;
+	removeLine: Function;
 	item: any;
 	quantity: number;
 }
 
-export default function CartItem({ item, quantity }: Props) {
+export default function CartItem({ cartId, removeLine, item, quantity }: Props) {
 	const [itemQuantity, setItemQuantity] = useState<number>(0);
 	useEffect(() => {
 		setItemQuantity(quantity);
@@ -99,6 +101,7 @@ export default function CartItem({ item, quantity }: Props) {
 							text-decoration: underline;
 							cursor: pointer;
 						`}
+						onClick={(e: any) => removeLine(e, cartId, item.node.id)}
 					>
 						Remove
 					</button>
