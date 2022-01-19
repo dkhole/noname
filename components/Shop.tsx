@@ -26,7 +26,7 @@ export default function Shop({ addToCart, localCart, setLocalCart, products }: P
 					margin-bottom: 0;
 				`}
 			>
-				Shop All
+				Best Sellers
 			</h1>
 			<div>
 				{products.length > 0 ? (
