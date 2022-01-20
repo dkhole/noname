@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
-import beefCut from "../imgs/beef-cut.png";
+import beefCut from "../imgs/beef.png";
 
 export default function Landing() {
 	return (
@@ -17,27 +17,38 @@ export default function Landing() {
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
+					padding-left: 25px;
+					@media (min-width: 800px) {
+						height: 80vh;
+						justify-content: space-around;
+					}
 				`}
 			>
 				<div
 					css={css`
 						height: 200px;
 						width: 200px;
-						padding: 0 25px;
+						padding: 0;
+						@media (min-width: 800px) {
+							padding-left: 500px;
+							margin-right: 0;
+						}
 					`}
 				>
 					<div
 						css={css`
 							font-weight: 800;
 							margin-bottom: 30px;
+							font-size: max(17px, 2vw);
+							width: 800px;
 						`}
 					>
-						ROO + LAMB RECIPE
+						ROO RECIPE
 					</div>
 					<div
 						css={css`
 							font-weight: 600;
-							font-size: 20px;
+							font-size: max(20px, 1vw);
 							margin-bottom: 30px;
 						`}
 					>
@@ -65,7 +76,21 @@ export default function Landing() {
 						</button>
 					</Link>
 				</div>
-				<Image src={beefCut} alt="Beef dog food" />
+				<div
+					css={css`
+						position: absolute;
+						margin-top: 30px;
+						right: -140px;
+						@media (min-width: 800px) {
+							position: static;
+							margin-right: 10vw;
+							margin-left: 0;
+							padding-left: 0;
+						}
+					`}
+				>
+					<Image src={beefCut} alt="Beef dog food" height={300} width={300} />
+				</div>
 			</div>
 			<div
 				css={css`

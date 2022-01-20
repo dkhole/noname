@@ -7,6 +7,7 @@ import beef from "../../imgs/beef.png";
 import { useEffect, useState } from "react";
 import { CartType } from "../../utils/types";
 import { updateLocal, addToCart, removeLine, updateLine } from "../../utils/cartHelpers";
+import Footer from "../../components/Footer";
 
 export default function Shop() {
 	const [localCart, setLocalCart] = useState<CartType>({
@@ -168,6 +169,7 @@ export default function Shop() {
 			/>
 			<Info title="INGREDIENTS" content="Chicken, Beef Liver, Beef Kidney, Spinach, Carrot, Egg, Pilchards, Strawberries, Blueberries, Blackberries, Deyhydrated Bone Meal, Basil, Calcified Seaweed, Kelp Powder, Extra Virgin Olive Oil." table={false} />
 			<Info title="NUTRITIONAL BREAKDOWN" content="This recipe is formulated to meet the NRC nutritional guidelines. Read more about why we choose to meet NRC over AAFCO guidelines here." table={true} />
+			<Footer />
 		</div>
 	);
 }

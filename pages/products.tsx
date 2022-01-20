@@ -8,6 +8,7 @@ import beef from "../imgs/beef.png";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
 import { updateLocal, addToCart, removeLine, updateLine } from "../utils/cartHelpers";
+import Footer from "../components/Footer";
 
 const Products: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -94,6 +95,7 @@ const Products: NextPage = ({ shopify }: any) => {
 					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" /> */}
 				</div>
 			</div>
+			<Footer />
 		</div>
 	);
 };

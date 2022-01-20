@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Landing from "../components/Landing";
-import Shop from "../components/Shop";
+import BestSellers from "../components/BestSellers";
 import Values from "../components/Values";
 import Email from "../components/Email";
 import Footer from "../components/Footer";
@@ -63,7 +63,7 @@ const Home: NextPage = ({ shopify }: any) => {
 		<div>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
 			<Landing />
-			<Shop addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} products={products} />
+			<BestSellers addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} products={products} />
 			<Values />
 			<Email />
 			<Footer />

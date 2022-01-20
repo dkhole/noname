@@ -12,22 +12,39 @@ interface Props {
 	products: ProductType[];
 }
 
-export default function Shop({ addToCart, localCart, setLocalCart, products }: Props) {
+export default function BestSellers({ addToCart, localCart, setLocalCart, products }: Props) {
 	return (
 		<div
 			css={css`
 				font-family: Montserrat;
 				text-align: center;
+				position: relative;
 			`}
 		>
 			<h1
 				css={css`
 					font-weight: 600;
-					margin-bottom: 0;
+					margin-bottom: 5px;
 				`}
 			>
 				Best Sellers
 			</h1>
+			<Link href={"/products"}>
+				<a
+					css={css`
+						font-size: 12px;
+						font-weight: 600;
+						text-decoration: underline;
+						cursor: pointer;
+						color: #f58f83;
+						&:hover {
+							color: #ea5c4c;
+						}
+					`}
+				>
+					View All
+				</a>
+			</Link>
 			<div>
 				{products.length > 0 ? (
 					<>
@@ -48,6 +65,28 @@ export default function Shop({ addToCart, localCart, setLocalCart, products }: P
 					<div></div>
 				)}
 			</div>
+			<Link href={"/products"}>
+				<div
+					css={css`
+						margin-bottom: 50px;
+					`}
+				>
+					<a
+						css={css`
+							font-size: 12px;
+							font-weight: 600;
+							text-decoration: underline;
+							cursor: pointer;
+							color: #f58f83;
+							&:hover {
+								color: #ea5c4c;
+							}
+						`}
+					>
+						View All
+					</a>
+				</div>
+			</Link>
 		</div>
 	);
 }

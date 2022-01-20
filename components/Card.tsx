@@ -18,7 +18,7 @@ export default function Card({ addToCart, localCart, setLocalCart, merchId, img,
 	return (
 		<div
 			css={css`
-				height: 400px;
+				height: 370px;
 				width: 300px;
 				margin: auto;
 				flex: 0 0 auto;
