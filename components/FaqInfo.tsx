@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { useState } from "react";
+import { mediaQuery } from "../utils/mediaQuery";
 
 interface FaqInfoProps {
 	title: string;
@@ -18,6 +19,9 @@ export default function FaqInfo({ title, blocks }: FaqInfoProps) {
 		transition: 0.5s;
 		overflow: hidden;
 		cursor: pointer;
+		@media (min-width: ${mediaQuery}) {
+			padding-left: 50px;
+		}
 		${isOpen === false &&
 		`
             max-height: 60px;
@@ -58,6 +62,9 @@ export default function FaqInfo({ title, blocks }: FaqInfoProps) {
 						transform: rotate(45deg);
 						-webkit-transform: rotate(45deg);
 						margin-right: 65px;
+						@media (min-width: ${mediaQuery}) {
+							margin-right: 115px;
+						}
 					`}
 				></i>
 			</div>

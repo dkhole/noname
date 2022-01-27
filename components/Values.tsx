@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
+import { mediaQuery } from "../utils/mediaQuery";
 
 export default function Values() {
 	const valueNumStyles = css`
@@ -25,69 +26,81 @@ export default function Values() {
 						font-weight: 600;
 						margin: 0;
 						margin-bottom: 7px;
+						text-align: left;
+						@media (min-width: ${mediaQuery}) {
+							text-align: center;
+						}
 					`}
 				>
 					Our Values
 				</h1>
 				<div
 					css={css`
-						position: relative;
-						padding: 20px 0;
-						font-size: 14px;
+						@media (min-width: ${mediaQuery}) {
+							padding: 0 min(400px, 20vw);
+						}
 					`}
 				>
-					<div css={valueNumStyles}>01</div>
-					<span
+					<div
 						css={css`
-							font-weight: 600;
+							position: relative;
+							padding: 20px 0;
+							font-size: 14px;
 						`}
 					>
-						100% Human Quality
-					</span>
-					<br />
-					<br />
-					<span>
-						The pet food industry isn’t legally regulated in Australia, which means the ingredients used in commercial pet food are often those that are ‘not fit for human consumption’. We’ll only ever use human-quality ingredients, because if we wouldn’t eat it, we wouldn’t feed it to
-						our dogs either.{" "}
-					</span>
-				</div>
-				<div
-					css={css`
-						position: relative;
-						padding: 20px 0;
-						font-size: 14px;
-					`}
-				>
-					<div css={valueNumStyles}>02</div>
-					<span
+						<div css={valueNumStyles}>01</div>
+						<span
+							css={css`
+								font-weight: 600;
+							`}
+						>
+							100% Human Quality
+						</span>
+						<br />
+						<br />
+						<span>
+							The pet food industry isn’t legally regulated in Australia, which means the ingredients used in commercial pet food are often those that are ‘not fit for human consumption’. We’ll only ever use human-quality ingredients, because if we wouldn’t eat it, we wouldn’t feed it
+							to our dogs either.{" "}
+						</span>
+					</div>
+					<div
 						css={css`
-							font-weight: 600;
+							position: relative;
+							padding: 20px 0;
+							font-size: 14px;
 						`}
 					>
-						Transparent Pricing
-					</span>
-					<br />
-					<br />
-					<span>We believe owners have the right to know what their dog’s food costs to make. We reveal all the costs behind all our food - from the ingredients to labor to transport. </span>
-				</div>
-				<div
-					css={css`
-						position: relative;
-						padding: 20px 0;
-						font-size: 14px;
-					`}
-				>
-					<div css={valueNumStyles}>03</div>
-					<span
+						<div css={valueNumStyles}>02</div>
+						<span
+							css={css`
+								font-weight: 600;
+							`}
+						>
+							Transparent Pricing
+						</span>
+						<br />
+						<br />
+						<span>We believe owners have the right to know what their dog’s food costs to make. We reveal all the costs behind all our food - from the ingredients to labor to transport. </span>
+					</div>
+					<div
 						css={css`
-							font-weight: 600;
+							position: relative;
+							padding: 20px 0;
+							font-size: 14px;
 						`}
 					>
-						Inspired by Nature, Informed by Science
-					</span>
-					<br />
-					<br />
-					<span>Our recipes are formulated by pet nutritionists to ensure that they fit your dog’s ancestral diet. We use raw, whole foods - just as nature intended.</span>
+						<div css={valueNumStyles}>03</div>
+						<span
+							css={css`
+								font-weight: 600;
+							`}
+						>
+							Inspired by Nature, Informed by Science
+						</span>
+						<br />
+						<br />
+						<span>Our recipes are formulated by pet nutritionists to ensure that they fit your dog’s ancestral diet. We use raw, whole foods - just as nature intended.</span>
+					</div>
 				</div>
 			</div>
 			<div

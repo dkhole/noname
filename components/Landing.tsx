@@ -3,6 +3,7 @@ import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
 import beefCut from "../imgs/beef.png";
+import { mediaQuery } from "../utils/mediaQuery";
 
 export default function Landing() {
 	return (
@@ -18,8 +19,8 @@ export default function Landing() {
 					align-items: center;
 					justify-content: space-between;
 					padding-left: 25px;
-					@media (min-width: 800px) {
-						height: 80vh;
+					@media (min-width: ${mediaQuery}) {
+						height: 100vh;
 						justify-content: space-around;
 					}
 				`}
@@ -27,11 +28,10 @@ export default function Landing() {
 				<div
 					css={css`
 						height: 200px;
-						width: 200px;
+						width: max(200px, 35vw);
 						padding: 0;
-						@media (min-width: 800px) {
-							padding-left: 500px;
-							margin-right: 0;
+						@media (min-width: ${mediaQuery}) {
+							margin-left: 10vw;
 						}
 					`}
 				>
@@ -81,15 +81,18 @@ export default function Landing() {
 						position: absolute;
 						margin-top: 30px;
 						right: -140px;
-						@media (min-width: 800px) {
-							position: static;
-							margin-right: 10vw;
-							margin-left: 0;
-							padding-left: 0;
+						height: 300px;
+						width: 300px;
+						@media (min-width: ${mediaQuery}) {
+							position: relative;
+							margin-right: 25vw;
+							height: min(40vh, 450px);
+							width: min(40vh, 450px);
+							margin-top: 0;
 						}
 					`}
 				>
-					<Image src={beefCut} alt="Beef dog food" height={300} width={300} />
+					<Image src={beefCut} alt="Beef dog food" quality={100} height={300} width={300} layout="fill" objectFit="fill" />
 				</div>
 			</div>
 			<div
@@ -101,6 +104,10 @@ export default function Landing() {
 					text-align: left;
 					padding: 55px;
 					line-height: 27.5px;
+					@media (min-width: ${mediaQuery}) {
+						padding: 55px 24vw;
+						text-align: center;
+					}
 				`}
 			>
 				Honest, raw dog food,{" "}

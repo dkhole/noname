@@ -35,7 +35,8 @@ export default function Email() {
 				css={css`
 					padding: 30px 10px 0;
 					display: flex;
-					justify-content: space-around;
+					justify-content: center;
+					gap: 50px;
 				`}
 			>
 				<input placeholder="Human's name" css={inputStyles} />
@@ -45,7 +46,8 @@ export default function Email() {
 				css={css`
 					padding: 20px 10px 0;
 					display: flex;
-					justify-content: space-around;
+					justify-content: center;
+					gap: 50px;
 					margin-bottom: 30px;
 				`}
 			>

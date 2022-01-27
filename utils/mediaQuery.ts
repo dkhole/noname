@@ -1,0 +1,1 @@
+export const mediaQuery: string = `800px`;

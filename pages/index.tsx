@@ -1,3 +1,5 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
@@ -60,7 +62,11 @@ const Home: NextPage = ({ shopify }: any) => {
 	console.log(products);
 	console.log(localCart);
 	return (
-		<div>
+		<div
+			css={css`
+				width: 100vw;
+			`}
+		>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
 			<Landing />
 			<BestSellers addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} products={products} />

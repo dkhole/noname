@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Link from "next/link";
+import { mediaQuery } from "../utils/mediaQuery";
 
 export default function Footer() {
 	return (
@@ -8,8 +9,13 @@ export default function Footer() {
 			css={css`
 				font-family: Montserrat;
 				background-color: #f2efe4;
+				height: 175px;
 				display: flex;
+				justify-content: center;
 				font-size: 13px;
+				@media (min-width: ${mediaQuery}) {
+					gap: 100px;
+				}
 			`}
 		>
 			<div

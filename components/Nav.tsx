@@ -7,6 +7,7 @@ import cart from "../imgs/cart.svg";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import { CartType } from "../utils/types";
+import { mediaQuery } from "../utils/mediaQuery";
 
 interface NavProps {
 	localCart: CartType;
@@ -30,11 +31,16 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 
 	const hamburgerSpanStyle = css`
 		display: block;
-		height: 2px;
+		height: 3px;
 		width: 33px;
 		background: #2b6e6c;
 		border-radius: 3px;
-		margin: 7.5px 0;
+		margin: 5px 0;
+		@media (min-width: ${mediaQuery}) {
+			height: 5px;
+			width: 35px;
+			margin: 7px 0;
+		}
 	`;
 
 	const navStyles = (isOpen: boolean) => css`
@@ -99,6 +105,9 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				justify-content: space-around;
 				z-index: 1;
 				text-align: left;
+				@media (min-width: ${mediaQuery}) {
+					height: 100px;
+				}
 			`}
 		>
 			<div css={navStyles(isNavOpen)}>
@@ -161,15 +170,29 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				<span css={hamburgerSpanStyle}></span>
 			</div>
 			<Link href="/" passHref>
-				<div>
+				<div
+					css={css`
+						position: relative;
+						height: 25px;
+						width: 150px;
+						@media (min-width: ${mediaQuery}) {
+							line-height: auto;
+							height: 35px;
+							width: 200px;
+						}
+					`}
+				>
 					<Image
 						src={nonameLogo}
 						alt="Noname logo"
 						css={css`
 							cursor: pointer;
 						`}
-						// width={500} automatically provided
-						// height={500} automatically provided
+						width={300}
+						height={300}
+						layout="fill"
+						objectFit="fill"
+						quality={100}
 						// blurDataURL="data:..." automatically provided
 						// placeholder="blur" // Optional blur-up while loading
 					/>
@@ -187,6 +210,10 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 							top: 10px;
 							right: -8px;
 							z-index: 1;
+							@media (min-width: ${mediaQuery}) {
+								top: 15px;
+								right: -5px;
+							}
 						`}
 					>
 						<span
@@ -202,11 +229,50 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 								color: white;
 								text-align: center;
 								line-height: 18.5px;
+								@media (min-width: ${mediaQuery}) {
+									height: 20px;
+									width: 20px;
+									font-size: 12px;
+									line-height: 19px;
+								}
 							`}
 						>
 							{cartQuantity}
 						</span>
 					</div>
+					<div
+						css={css`
+							position: relative;
+							height: 25px;
+							width: 25px;
+							@media (min-width: ${mediaQuery}) {
+								height: 37.5px;
+								width: 37.5px;
+							}
+						`}
+					>
+						<Image
+							src={cart}
+							alt="Shopping cart logo"
+							css={css`
+								cursor: pointer;
+							`}
+							onClick={toggleCart}
+							height={40}
+							width={40}
+						/>
+					</div>
+				</div>
+			) : (
+				<div
+					css={css`
+						height: 50px;
+						width: 50px;
+						background-color: blue;
+						@media (min-width: ${mediaQuery}) {
+						}
+					`}
+				>
 					<Image
 						src={cart}
 						alt="Shopping cart logo"
@@ -216,15 +282,6 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						onClick={toggleCart}
 					/>
 				</div>
-			) : (
-				<Image
-					src={cart}
-					alt="Shopping cart logo"
-					css={css`
-						cursor: pointer;
-					`}
-					onClick={toggleCart}
-				/>
 			)}
 
 			<div css={cartStyles(isCartOpen)}>
@@ -274,6 +331,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				<div
 					css={css`
 						height: calc(100vh - 250px);
+						overflow-y: scroll;
 					`}
 				>
 					{localCart.lines ? (

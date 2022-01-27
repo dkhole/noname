@@ -9,6 +9,7 @@ import { removeLine, updateLine, updateLocal } from "../utils/cartHelpers";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
 import Email from "../components/Email";
+import { mediaQuery } from "../utils/mediaQuery";
 
 const Faq: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -66,12 +67,19 @@ const Faq: NextPage = ({ shopify }: any) => {
 			<div
 				css={css`
 					padding-top: 70px;
+					@media (min-width: ${mediaQuery}) {
+						padding-top: 100px;
+					}
 				`}
 			>
 				<h2
 					css={css`
 						margin: 0;
 						padding: 40px;
+						@media (min-width: ${mediaQuery}) {
+							font-size: 35px;
+							padding: 40px 80px;
+						}
 					`}
 				>
 					FAQs

@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import Link from "next/link";
 import beef from "../imgs/beef.png";
+import { mediaQuery } from "../utils/mediaQuery";
 import { CartType, ProductType } from "../utils/types";
 import Card from "./Card";
 
@@ -45,7 +46,16 @@ export default function BestSellers({ addToCart, localCart, setLocalCart, produc
 					View All
 				</a>
 			</Link>
-			<div>
+			<div
+				css={css`
+					@media (min-width: ${mediaQuery}) {
+						display: flex;
+						justify-content: center;
+						gap: 50px;
+						align-items: center;
+					}
+				`}
+			>
 				{products.length > 0 ? (
 					<>
 						<Link href="/products/chicken-beef">
@@ -58,8 +68,26 @@ export default function BestSellers({ addToCart, localCart, setLocalCart, produc
 								<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[0].merchId} img={beef} title={products[0].title} description="Our #1 Pick for Picky Eaters!" price={products[0].price} />
 							</a>
 						</Link>
-						<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[1].merchId} img={beef} title={products[1].title} description="Our #1 Pick for Picky Eaters!" price={products[1].price} />
-						<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[2].merchId} img={beef} title={products[2].title} description="Our #1 Pick for Picky Eaters!" price={products[2].price} />
+						<Link href="/products/chicken-beef">
+							<a
+								css={css`
+									text-decoration: none;
+									cursor: pointer;
+								`}
+							>
+								<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[1].merchId} img={beef} title={products[1].title} description="Our #1 Pick for Picky Eaters!" price={products[1].price} />
+							</a>
+						</Link>
+						<Link href="/products/chicken-beef">
+							<a
+								css={css`
+									text-decoration: none;
+									cursor: pointer;
+								`}
+							>
+								<Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={products[2].merchId} img={beef} title={products[2].title} description="Our #1 Pick for Picky Eaters!" price={products[2].price} />
+							</a>
+						</Link>
 					</>
 				) : (
 					<div></div>
