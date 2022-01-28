@@ -2,6 +2,7 @@
 import { css } from "@emotion/react";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
+import { getImage } from "../utils/helpers";
 import Nav from "../components/Nav";
 import Landing from "../components/Landing";
 import BestSellers from "../components/BestSellers";
@@ -53,6 +54,7 @@ const Home: NextPage = ({ shopify }: any) => {
 				description: prod.node.description,
 				merchId: prod.node.variants.edges[0].node.id,
 				price: parseInt(prod.node.variants.edges[0].node.priceV2.amount),
+				img: getImage(prod.node.title.charAt(0)),
 			};
 		});
 

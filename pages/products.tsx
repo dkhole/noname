@@ -9,6 +9,9 @@ import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
 import { updateLocal, addToCart, removeLine, updateLine } from "../utils/cartHelpers";
 import Footer from "../components/Footer";
+import { mediaQuery } from "../utils/mediaQuery";
+import Email from "../components/Email";
+import { getImage } from "../utils/helpers";
 
 const Products: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -51,6 +54,7 @@ const Products: NextPage = ({ shopify }: any) => {
 				description: prod.node.description,
 				merchId: prod.node.variants.edges[0].node.id,
 				price: parseInt(prod.node.variants.edges[0].node.priceV2.amount),
+				img: getImage(prod.node.title.charAt(0)),
 			};
 		});
 
@@ -61,7 +65,9 @@ const Products: NextPage = ({ shopify }: any) => {
 	console.log(localCart);
 
 	return (
-		<div>
+		<div css={css`
+			
+		`}>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
 			<div
 				css={css`
@@ -69,6 +75,9 @@ const Products: NextPage = ({ shopify }: any) => {
 					padding-top: 110px;
 					font-family: Montserrat;
 					text-align: center;
+					@media (min-width: ${mediaQuery}) {
+						padding-top: 150px;
+					}
 				`}
 			>
 				<h1
@@ -81,10 +90,16 @@ const Products: NextPage = ({ shopify }: any) => {
 				>
 					All Products
 				</h1>
-				<div>
+				<div css={css`
+					margin-bottom: 100px;
+					@media (min-width: ${mediaQuery}) {
+						display: flex;
+						flex-wrap: wrap;
+					}
+				`}>
 					{products ? (
 						products.map((product: ProductType, index: number) => {
-							return <Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={product.merchId} img={beef} title={product.title} description="Our #1 Pick for Picky Eaters!" price={product.price} key={index} />;
+							return <Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={product.merchId} img={product.img} title={product.title} description={product.description} price={product.price} key={index} />;
 						})
 					) : (
 						<div></div>
@@ -95,6 +110,7 @@ const Products: NextPage = ({ shopify }: any) => {
 					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" /> */}
 				</div>
 			</div>
+			<Email />
 			<Footer />
 		</div>
 	);

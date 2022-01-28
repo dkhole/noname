@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
-import beefCut from "../imgs/beef.png";
+import beef from "../public/imgs/Beef_trans.png";
 import { mediaQuery } from "../utils/mediaQuery";
 
 export default function Landing() {
@@ -21,7 +21,7 @@ export default function Landing() {
 					padding-left: 25px;
 					@media (min-width: ${mediaQuery}) {
 						height: 100vh;
-						justify-content: space-around;
+						padding: 0;
 					}
 				`}
 			>
@@ -32,6 +32,7 @@ export default function Landing() {
 						padding: 0;
 						@media (min-width: ${mediaQuery}) {
 							margin-left: 10vw;
+							margin-right: 0;
 						}
 					`}
 				>
@@ -80,19 +81,18 @@ export default function Landing() {
 					css={css`
 						position: absolute;
 						margin-top: 30px;
-						right: -140px;
-						height: 300px;
-						width: 300px;
+						right: -180px;
+						height: 400px;
+						width: 500px;
 						@media (min-width: ${mediaQuery}) {
-							position: relative;
-							margin-right: 25vw;
-							height: min(40vh, 450px);
-							width: min(40vh, 450px);
+							margin-right: 12.5vw;
+							width: 650px;
+							height: 500px;
 							margin-top: 0;
 						}
 					`}
 				>
-					<Image src={beefCut} alt="Beef dog food" quality={100} height={300} width={300} layout="fill" objectFit="fill" />
+					<Image src={beef} alt="Beef dog food" priority={true} layout="fill"  />
 				</div>
 			</div>
 			<div
@@ -105,7 +105,7 @@ export default function Landing() {
 					padding: 55px;
 					line-height: 27.5px;
 					@media (min-width: ${mediaQuery}) {
-						padding: 55px 24vw;
+						padding: 75px 27vw;
 						text-align: center;
 					}
 				`}

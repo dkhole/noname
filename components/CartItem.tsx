@@ -2,7 +2,7 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import beef from "../imgs/beef.png";
+import beef from "../public/imgs/beef.png";
 
 interface Props {
 	cartId: string;

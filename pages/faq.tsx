@@ -10,6 +10,7 @@ import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
 import Email from "../components/Email";
 import { mediaQuery } from "../utils/mediaQuery";
+import { getImage } from "../utils/helpers";
 
 const Faq: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -52,6 +53,7 @@ const Faq: NextPage = ({ shopify }: any) => {
 				description: prod.node.description,
 				merchId: prod.node.variants.edges[0].node.id,
 				price: parseInt(prod.node.variants.edges[0].node.priceV2.amount),
+				img: getImage(prod.node.title.charAt(0)),
 			};
 		});
 

@@ -37,7 +37,7 @@ export default function Values() {
 				<div
 					css={css`
 						@media (min-width: ${mediaQuery}) {
-							padding: 0 min(400px, 20vw);
+							padding: 0 min(500px, 25vw);
 						}
 					`}
 				>

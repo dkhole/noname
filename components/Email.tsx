@@ -24,6 +24,7 @@ export default function Email() {
 		>
 			<span
 				css={css`
+					font-size: max(13px, 1vw);
 					font-weight: 800;
 					text-decoration: underline #f58f83;
 					text-decoration-thickness: 5px;

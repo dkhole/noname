@@ -2,8 +2,8 @@
 import { css } from "@emotion/react";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import nonameLogo from "../imgs/noname.png";
-import cart from "../imgs/cart.svg";
+import nonameLogo from "../public/imgs/noname.png";
+import cart from "../public/imgs/cart.svg";
 import CartItem from "./CartItem";
 import Link from "next/link";
 import { CartType } from "../utils/types";
@@ -23,10 +23,12 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 
 	useEffect(() => {
 		let count = 0;
-		localCart.lines.map((line: any) => {
-			count += line.node.quantity;
-		});
-		setCartQuantity(count);
+		if(localCart.lines.length > 0) {
+			localCart.lines.map((line: any) => {
+				count += line.node.quantity;
+			});
+			setCartQuantity(count);
+		}
 	}, [localCart]);
 
 	const hamburgerSpanStyle = css`
@@ -38,7 +40,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 		margin: 5px 0;
 		@media (min-width: ${mediaQuery}) {
 			height: 5px;
-			width: 35px;
+			width: 45px;
 			margin: 7px 0;
 		}
 	`;
@@ -188,8 +190,6 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						css={css`
 							cursor: pointer;
 						`}
-						width={300}
-						height={300}
 						layout="fill"
 						objectFit="fill"
 						quality={100}
@@ -268,7 +268,6 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 					css={css`
 						height: 50px;
 						width: 50px;
-						background-color: blue;
 						@media (min-width: ${mediaQuery}) {
 						}
 					`}
@@ -334,7 +333,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						overflow-y: scroll;
 					`}
 				>
-					{localCart.lines ? (
+					{localCart.lines.length > 0 ? (
 						localCart.lines.map((item: any, count: number) => {
 							return <CartItem cartId={localCart.id} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
 						})

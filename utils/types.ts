@@ -14,5 +14,6 @@ export type ProductType = {
 	title: string,
 	description: string,
 	merchId: string,
-	price: number
+	price: number,
+	img: any
 }

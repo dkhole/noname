@@ -31,7 +31,6 @@ export default function FaqInfo({ title, blocks }: FaqInfoProps) {
 	const toggleOpen = () => {
 		isInfoOpen ? setIsInfoOpen(false) : setIsInfoOpen(true);
 	};
-	console.log(blocks);
 	return (
 		<div css={infoStyles(isInfoOpen)} onClick={toggleOpen}>
 			<div
