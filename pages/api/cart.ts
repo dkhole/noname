@@ -7,6 +7,7 @@ export default async function handler(req: any, res: any) {
             const data = JSON.parse(req.body);
             const cartId = data.cartId;
             const merchId = data.merchId;
+            const quantity: number = parseInt(data.quantity);
             const query = `
                 mutation cartLinesAdd($lines: [CartLineInput!]!, $cartId: ID!) {
                     cartLinesAdd(lines: $lines, cartId: $cartId) {
@@ -51,11 +52,12 @@ export default async function handler(req: any, res: any) {
             const variables = 
             {
                 "lines": [
-                {
-                    "merchandiseId": merchId,
-                }
+                    {
+                        "merchandiseId": merchId,
+                        "quantity": quantity
+                    }
                 ],
-                "cartId": cartId
+                "cartId": cartId,
             };
             
             const shopify = await shopifyQuery(query, variables);

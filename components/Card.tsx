@@ -84,7 +84,7 @@ export default function Card({ addToCart, localCart, setLocalCart, merchId, img,
 					</span>
 					<br />
 					<span
-						onClick={(e) => addToCart(e, localCart.id, merchId, setLocalCart)}
+						onClick={(e) => addToCart(e, localCart.id, merchId, 1, setLocalCart)}
 						css={css`
 							font-weight: 600;
 							font-size: 12px;

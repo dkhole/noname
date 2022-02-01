@@ -10,9 +10,9 @@
 		window.localStorage.setItem("nonameCart", JSON.stringify(newCart));
 	};
 
-	export const addToCart = async (e: any, cartId: string, merchId: string, setLocalCart: Function) => {
+	export const addToCart = async (e: any, cartId: string, merchId: string, quantity: number, setLocalCart: Function) => {
 		e.stopPropagation();
-		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId: cartId, merchId: merchId }) });
+		const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: JSON.stringify({ cartId, merchId, quantity }) });
 		const resNew = await res.json();
 		if (resNew.data.cartLinesAdd) {
 			updateLocal(resNew.data.cartLinesAdd.cart, setLocalCart);

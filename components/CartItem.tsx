@@ -27,7 +27,7 @@ export default function CartItem({ cartId, setLocalCart, removeLine, updateLine,
 		} else {
 			setRevealUpdate(false);
 		}
-	}, [itemQuantity]);
+	}, [itemQuantity, quantity]);
 
 	//console.log(item);
 

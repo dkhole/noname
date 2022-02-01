@@ -47,7 +47,8 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 
 	const navStyles = (isOpen: boolean) => css`
 		font-family: Montserrat;
-		background-color: #f4d4d0;
+		background-color: #519492;
+		color: #f2efe4;
 		height: 100%;
 		width: 0;
 		overflow-x: hidden;
@@ -83,8 +84,15 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 
 	const linkStyles = css`
 		text-decoration: none;
-		color: black;
+		text-transform: uppercase;
+		color: #f2efe4;
 		font-weight: 600;
+		letter-spacing: 1.25px;
+		font-size: 17px;
+		&:hover {
+			color: #fcbdb1;
+			/*color: white;*/
+		}
 	`;
 
 	const toggleNav = () => {
@@ -105,7 +113,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				display: flex;
 				align-items: center;
 				justify-content: space-around;
-				z-index: 1;
+				z-index: 2;
 				text-align: left;
 				@media (min-width: ${mediaQuery}) {
 					height: 100px;
@@ -119,6 +127,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						top: 10px;
 						left: 20px;
 						font-weight: 600;
+						font-size: 20px;
 						cursor: pointer;
 						&:hover {
 							color: red;
@@ -126,7 +135,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 					`}
 					onClick={toggleNav}
 				>
-					x
+					X
 				</div>
 				<div
 					css={css`
@@ -141,24 +150,35 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						padding-top: 30px;
 					`}
 				>
-					<a css={linkStyles} href="#">
-						Shop All
-					</a>
-					<a css={linkStyles} href="#">
-						About
-					</a>
-					<a css={linkStyles} href="#">
-						Shipping + Delivery
-					</a>
-					<a css={linkStyles} href="#">
-						Picky Pup Guarantee
-					</a>
-					<a css={linkStyles} href="#">
-						Sustainability
-					</a>
-					<a css={linkStyles} href="#">
-						Dog Health Tips
-					</a>
+					<Link href="/" passHref>
+						<a css={linkStyles}>
+							Home
+						</a>
+					</Link>
+
+					<Link href="/products" passHref>
+						<a css={linkStyles}>
+							Shop All
+						</a>
+					</Link>
+
+					<Link href="/faq" passHref>
+						<a css={linkStyles}>
+							FAQ
+						</a>
+					</Link>
+
+					<Link href="/faq" passHref>
+						<a css={linkStyles}>
+							Shipping + Delivery
+						</a>
+					</Link>
+
+					<Link href="/faq" passHref>
+						<a css={linkStyles}>
+							Picky Pup Guarantee
+						</a>
+					</Link>
 				</div>
 			</div>
 			<div
