@@ -29,6 +29,3 @@ export const getLink = (firstLetter: string) => {
             return "";
     }
 }
-
-export const testingUrl: string = 'http://localhost:3000';
-export const productionUrl: string = 'https://noname-p9d7y5xvv-dkhole.vercel.app/';

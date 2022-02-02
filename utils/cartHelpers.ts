@@ -1,11 +1,9 @@
-import { testingUrl, productionUrl } from "./helpers";
-
 	export const initialiseCart = (setLocalCart: Function) => {
 		const storage = window.localStorage;
 		let cart: any = storage.getItem("nonameCart");
 		//if cart doesnt exist create one save cart in state
 		const createCart = async () => {
-			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
+			const res = await fetch("/api/cart", { method: "POST", body: "" });
 			const resNew = await res.json();
 			if (resNew.data.cartCreate) {
 				updateLocal(resNew.data.cartCreate.cart, setLocalCart);
@@ -65,7 +63,7 @@ import { testingUrl, productionUrl } from "./helpers";
 	export const addToCart = async (e: any, cartId: string, merchId: string, quantity: number, setLocalCart: Function) => {
 		e.stopPropagation();
 		console.log();
-		const res = await fetch(`${productionUrl}/api/cart`, { method: "POST", body: JSON.stringify({ cartId, merchId, quantity }) });
+		const res = await fetch(`/api/cart`, { method: "POST", body: JSON.stringify({ cartId, merchId, quantity }) });
 		const resNew = await res.json();
 		if (resNew.data.cartLinesAdd) {
 			updateLocal(resNew.data.cartLinesAdd.cart, setLocalCart);
@@ -74,7 +72,7 @@ import { testingUrl, productionUrl } from "./helpers";
 
 	export const removeLine = async (e: any, cartId: string, lineId: string, setLocalCart: Function) => {
 		e.stopPropagation();
-		const res = await fetch(`${productionUrl}/api/cart`, { method: "DELETE", body: JSON.stringify({ cartId, lineId }) });
+		const res = await fetch(`/api/cart`, { method: "DELETE", body: JSON.stringify({ cartId, lineId }) });
 		const resNew = await res.json();
 		if (resNew.data.cartLinesRemove) {
 			updateLocal(resNew.data.cartLinesRemove.cart, setLocalCart);
@@ -83,7 +81,7 @@ import { testingUrl, productionUrl } from "./helpers";
 
 	export const updateLine = async(e: any, cartId: string, lineId: string, quantity: number, setLocalCart: Function) => {
 		e.stopPropagation();
-		const res = await fetch(`${productionUrl}/api/cart`, { method: "PUT", body: JSON.stringify({ cartId, lineId, quantity }) });
+		const res = await fetch(`/api/cart`, { method: "PUT", body: JSON.stringify({ cartId, lineId, quantity }) });
 		const resNew = await res.json();
 		if (resNew.data.cartLinesUpdate) {
 			updateLocal(resNew.data.cartLinesUpdate.cart, setLocalCart);
