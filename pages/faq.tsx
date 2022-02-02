@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import FaqInfo from "../components/FaqInfo";
-import { removeLine, updateLine, updateLocal } from "../utils/cartHelpers";
+import { initialiseCart, removeLine, updateLine, updateLocal } from "../utils/cartHelpers";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
 import Email from "../components/Email";
@@ -22,27 +22,7 @@ const Faq: NextPage = ({ shopify }: any) => {
 	});
 
 	useEffect(() => {
-		const storage = window.localStorage;
-		let cart: any = storage.getItem("nonameCart");
-		//if cart doesnt exist create one save cart in state
-		const createCart = async () => {
-			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
-			const resNew = await res.json();
-			if (resNew.data.cartCreate) {
-				updateLocal(resNew.data.cartCreate.cart, setLocalCart);
-			}
-		};
-		if (!cart) {
-			//create cart, have to do this for async function
-			const createCartFunction = async () => {
-				await createCart();
-			};
-			createCartFunction();
-		} else {
-			//save in local state
-			const parsedCart = JSON.parse(cart);
-			setLocalCart(parsedCart);
-		}
+		initialiseCart(setLocalCart);
 	}, []);
 
 	useEffect(() => {

@@ -11,7 +11,7 @@ import Email from "../components/Email";
 import Footer from "../components/Footer";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
-import { updateLocal, addToCart, removeLine, updateLine } from "../utils/cartHelpers";
+import { updateLocal, addToCart, removeLine, updateLine, initialiseCart } from "../utils/cartHelpers";
 
 const Home: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<ProductType[]>([]);
@@ -23,30 +23,11 @@ const Home: NextPage = ({ shopify }: any) => {
 	});
 
 	useEffect(() => {
-		const storage = window.localStorage;
-		let cart: any = storage.getItem("nonameCart");
-		//if cart doesnt exist create one save cart in state
-		const createCart = async () => {
-			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
-			const resNew = await res.json();
-			if (resNew.data.cartCreate) {
-				updateLocal(resNew.data.cartCreate.cart, setLocalCart);
-			}
-		};
-		if (!cart) {
-			//create cart, have to do this for async function
-			const createCartFunction = async () => {
-				await createCart();
-			};
-			createCartFunction();
-		} else {
-			//save in local state
-			const parsedCart = JSON.parse(cart);
-			setLocalCart(parsedCart);
-		}
+		initialiseCart(setLocalCart);
 	}, []);
 
 	useEffect(() => {
+		//get items from shopify
 		const items = shopify.data.products.edges.map((prod: any) => {
 			return {
 				id: prod.node.id,

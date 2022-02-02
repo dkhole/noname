@@ -23,7 +23,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 
 	useEffect(() => {
 		let count = 0;
-		if(localCart.lines.length > 0) {
+		if (localCart.lines.length > 0) {
 			localCart.lines.map((line: any) => {
 				count += line.node.quantity;
 			});
@@ -151,33 +151,23 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 					`}
 				>
 					<Link href="/" passHref>
-						<a css={linkStyles}>
-							Home
-						</a>
+						<a css={linkStyles}>Home</a>
 					</Link>
 
 					<Link href="/products" passHref>
-						<a css={linkStyles}>
-							Shop All
-						</a>
+						<a css={linkStyles}>Shop All</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>
-							FAQ
-						</a>
+						<a css={linkStyles}>FAQ</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>
-							Shipping + Delivery
-						</a>
+						<a css={linkStyles}>Shipping + Delivery</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>
-							Picky Pup Guarantee
-						</a>
+						<a css={linkStyles}>Picky Pup Guarantee</a>
 					</Link>
 				</div>
 			</div>
@@ -351,6 +341,11 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 					css={css`
 						height: calc(100vh - 250px);
 						overflow-y: scroll;
+						-ms-overflow-style: none;
+						scrollbar-width: none;
+						&::-webkit-scrollbar {
+							display: none;
+						}
 					`}
 				>
 					{localCart.lines.length > 0 ? (

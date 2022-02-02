@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import { mediaQuery } from "./mediaQuery";
+import { mediaQuery } from "../utils/mediaQuery";
 
 export const mainWrap = css`
     font-family: Montserrat;
@@ -55,16 +55,10 @@ export const imgShowWrap = css`
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: none;  
+    scrollbar-width: none; 
     &::-webkit-scrollbar {
-        width: 10px;
-        height: 4px;
-    }
-    &::-webkit-scrollbar-thumb {
-    background: #2b6e6c;
-    border-radius: 10px;
-    }
-    &::-webkit-scrollbar-track {
-    background: transparent;
+      display: none;
     }
 `
 

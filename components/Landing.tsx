@@ -82,8 +82,8 @@ export default function Landing() {
 						position: absolute;
 						margin-top: 30px;
 						right: -180px;
-						height: 400px;
-						width: 500px;
+						height: 350px;
+						width: 450px;
 						@media (min-width: ${mediaQuery}) {
 							margin-right: 12.5vw;
 							width: 650px;
@@ -92,7 +92,7 @@ export default function Landing() {
 						}
 					`}
 				>
-					<Image src={beef} alt="Beef dog food" priority={true} layout="fill"  />
+					<Image src={beef} alt="Beef dog food" priority={true} layout="fill" />
 				</div>
 			</div>
 			<div

@@ -7,7 +7,7 @@ import Nav from "../components/Nav";
 import beef from "../imgs/beef.png";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
-import { updateLocal, addToCart, removeLine, updateLine } from "../utils/cartHelpers";
+import { updateLocal, addToCart, removeLine, updateLine, initialiseCart } from "../utils/cartHelpers";
 import Footer from "../components/Footer";
 import { mediaQuery } from "../utils/mediaQuery";
 import Email from "../components/Email";
@@ -23,27 +23,7 @@ const Products: NextPage = ({ shopify }: any) => {
 	});
 
 	useEffect(() => {
-		const storage = window.localStorage;
-		let cart: any = storage.getItem("nonameCart");
-		//if cart doesnt exist create one save cart in state
-		const createCart = async () => {
-			const res = await fetch("http://localhost:3000/api/cart", { method: "POST", body: "" });
-			const resNew = await res.json();
-			if (resNew.data.cartCreate) {
-				updateLocal(resNew.data.cartCreate.cart, setLocalCart);
-			}
-		};
-		if (!cart) {
-			//create cart, have to do this for async function
-			const createCartFunction = async () => {
-				await createCart();
-			};
-			createCartFunction();
-		} else {
-			//save in local state
-			const parsedCart = JSON.parse(cart);
-			setLocalCart(parsedCart);
-		}
+		initialiseCart(setLocalCart);
 	}, []);
 
 	useEffect(() => {
@@ -65,9 +45,7 @@ const Products: NextPage = ({ shopify }: any) => {
 	console.log(localCart);
 
 	return (
-		<div css={css`
-			
-		`}>
+		<div css={css``}>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
 			<div
 				css={css`
@@ -90,13 +68,15 @@ const Products: NextPage = ({ shopify }: any) => {
 				>
 					All Products
 				</h1>
-				<div css={css`
-					margin-bottom: 100px;
-					@media (min-width: ${mediaQuery}) {
-						display: flex;
-						flex-wrap: wrap;
-					}
-				`}>
+				<div
+					css={css`
+						margin-bottom: 100px;
+						@media (min-width: ${mediaQuery}) {
+							display: flex;
+							flex-wrap: wrap;
+						}
+					`}
+				>
 					{products ? (
 						products.map((product: ProductType, index: number) => {
 							return <Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={product.merchId} img={product.img} title={product.title} description={product.description} price={product.price} key={index} />;
