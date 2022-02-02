@@ -255,21 +255,14 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 							position: relative;
 							height: 25px;
 							width: 25px;
+							cursor: pointer;
 							@media (min-width: ${mediaQuery}) {
 								height: 37.5px;
 								width: 37.5px;
 							}
 						`}
 					>
-						<Image
-							src={cart}
-							alt="Shopping cart logo"
-							css={css`
-								cursor: pointer;
-							`}
-							onClick={toggleCart}
-							layout="fill"
-						/>
+						<Image src={cart} alt="Shopping cart logo" onClick={toggleCart} layout="fill" />
 					</div>
 				</div>
 			) : (
@@ -278,6 +271,8 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 						height: 50px;
 						width: 50px;
 						@media (min-width: ${mediaQuery}) {
+							height: 37.5px;
+							width: 37.5px;
 						}
 					`}
 				>
