@@ -48,6 +48,8 @@ const Home: NextPage = ({ shopify }: any) => {
 		<div
 			css={css`
 				width: 100vw;
+				overflow-x: hidden;
+				position: relative;
 			`}
 		>
 			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />

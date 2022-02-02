@@ -66,7 +66,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 	const cartStyles = (isOpen: boolean) => css`
 		font-family: Montserrat;
 		background-color: white;
-		height: 100%;
+		height: 100vh;
 		width: 0;
 		overflow-x: hidden;
 		position: fixed;

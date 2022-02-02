@@ -5,11 +5,15 @@ import { mediaQuery } from "../utils/mediaQuery";
 export const mainWrap = css`
     font-family: Montserrat;
     text-align: center;
+    width: 100vw;
+    overflow-x: hidden;
 `
 
 export const productLandingWrap = css`
+    width: 100vw;
     padding-top: 110px;
     @media (min-width: ${mediaQuery}) {
+        width: auto;
         height: 30vh;
         padding-top: 225px;
         padding-bottom: 150px;
@@ -21,15 +25,17 @@ export const productLandingWrap = css`
 `
 export const imgSliderWrap = css`
     overflow: hidden;
-    width: 450px;
+    width: 100vw;
     box-sizing: border-box;
     position: relative;
+    @media (min-width: ${mediaQuery}) {
+        width: 450px;
+    }
 `
 
 export const buttonWrap = css`
-    position: absolute;
-    left: 200px;
-    bottom: 30px;
+    width: 50px;
+    margin: auto;
     z-index: 1;
 `
 
@@ -71,7 +77,7 @@ export const bowlImg = css`
     transform: scale(1);
     transition: transform 0.5s;
     height: 325px;
-    width: 450px;
+    width: 100vw;
     @media (min-width: ${mediaQuery}) {
         height: 350px;
         width: 450px;
@@ -90,7 +96,7 @@ export const packetImg = css`
     transform: scale(1);
     transition: transform 0.5s;
     height: 450px;
-    width: 450px;
+    width: 100vw;
     @media (min-width: ${mediaQuery}) {
         height: 450px;
         width: 450px;

@@ -79,20 +79,27 @@ export default function Landing() {
 				</div>
 				<div
 					css={css`
-						position: absolute;
-						margin-top: 30px;
-						right: -180px;
 						height: 350px;
 						width: 450px;
-						@media (min-width: ${mediaQuery}) {
-							margin-right: 12.5vw;
-							width: 650px;
-							height: 500px;
-							margin-top: 0;
-						}
 					`}
 				>
-					<Image src={beef} alt="Beef dog food" priority={true} layout="fill" />
+					<div
+						css={css`
+							position: absolute;
+							margin-top: 50px;
+							right: -150px;
+							height: 300px;
+							width: 350px;
+							@media (min-width: ${mediaQuery}) {
+								margin-right: 12.5vw;
+								width: 650px;
+								height: 500px;
+								margin-top: 0;
+							}
+						`}
+					>
+						<Image src={beef} alt="Beef dog food" priority={true} layout="fill" />
+					</div>
 				</div>
 			</div>
 			<div

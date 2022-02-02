@@ -10,14 +10,6 @@ export default function Product({ title, description, merchId, imgBowl, imgPacke
 	return (
 		<div css={productLandingWrap}>
 			<div css={imgSliderWrap}>
-				<div css={buttonWrap}>
-					<a href="#slide-1" css={sliderLink}>
-						1
-					</a>
-					<a href="#slide-2" css={sliderLink}>
-						2
-					</a>
-				</div>
 				<div css={imgShowWrap}>
 					<div css={bowlImg} id="slide-1">
 						<Image
@@ -43,6 +35,14 @@ export default function Product({ title, description, merchId, imgBowl, imgPacke
 							// placeholder="blur" // Optional blur-up while loading
 						/>
 					</div>
+				</div>
+				<div css={buttonWrap}>
+					<a href="#slide-1" css={sliderLink}>
+						1
+					</a>
+					<a href="#slide-2" css={sliderLink}>
+						2
+					</a>
 				</div>
 			</div>
 			<div css={mainInfoWrap}>
