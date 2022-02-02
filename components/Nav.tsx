@@ -268,8 +268,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 								cursor: pointer;
 							`}
 							onClick={toggleCart}
-							height={40}
-							width={40}
+							layout="fill"
 						/>
 					</div>
 				</div>

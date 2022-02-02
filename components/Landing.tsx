@@ -81,6 +81,9 @@ export default function Landing() {
 					css={css`
 						height: 350px;
 						width: 450px;
+						@media (min-width: ${mediaQuery}) {
+							padding-bottom: 150px;
+						}
 					`}
 				>
 					<div
@@ -98,7 +101,15 @@ export default function Landing() {
 							}
 						`}
 					>
-						<Image src={beef} alt="Beef dog food" priority={true} layout="fill" />
+						<Image
+							src={beef}
+							alt="Beef dog food"
+							priority={true}
+							layout="fill"
+							quality={50}
+							blurDataURL="data:..." //automatically provided
+							placeholder="blur" // Optional blur-up while loading
+						/>
 					</div>
 				</div>
 			</div>
