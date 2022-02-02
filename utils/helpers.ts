@@ -1,9 +1,3 @@
-import beef from "../public/imgs/Beef_trans.png";
-import chicken from "../public/imgs/Chicken_trans.png";
-import lamb from "../public/imgs/Lamb_trans.png";
-import roo from "../public/imgs/Roo_trans.png";
-import puppy from "../public/imgs/Puppy_trans.png";
-
 export const getImage = (firstLetter: string) => {
     switch(firstLetter) {
         case('C'):
@@ -35,3 +29,6 @@ export const getLink = (firstLetter: string) => {
             return "";
     }
 }
+
+export const testingUrl: string = 'http://localhost:3000';
+export const productionUrl: string = 'https://noname-p9d7y5xvv-dkhole.vercel.app/';
