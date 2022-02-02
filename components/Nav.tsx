@@ -28,6 +28,8 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				count += line.node.quantity;
 			});
 			setCartQuantity(count);
+		} else {
+			setCartQuantity(0);
 		}
 	}, [localCart]);
 
@@ -268,22 +270,17 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 			) : (
 				<div
 					css={css`
-						height: 50px;
-						width: 50px;
+						position: relative;
+						height: 25px;
+						width: 25px;
+						cursor: pointer;
 						@media (min-width: ${mediaQuery}) {
 							height: 37.5px;
 							width: 37.5px;
 						}
 					`}
 				>
-					<Image
-						src={cart}
-						alt="Shopping cart logo"
-						css={css`
-							cursor: pointer;
-						`}
-						onClick={toggleCart}
-					/>
+					<Image src={cart} alt="Shopping cart logo" onClick={toggleCart} layout="fill" />
 				</div>
 			)}
 
