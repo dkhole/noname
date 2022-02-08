@@ -210,36 +210,4 @@ export default async function handler(req: any, res: any) {
     } else {
         res.status(200).json("hello");
     }
-
-	// if (localCart.length < 1) {
-	// 	const query = `mutation cartCreateMutation($cartInput: CartInput) {
-	// 		cartCreate(input: $cartInput) {
-	// 		  cart {
-	// 			id
-	// 			checkoutUrl
-	// 			lines(first:10) {
-	// 			  edges {
-	// 				 node {
-	// 					quantity
-	// 				 }
-	// 			   }
-	// 			}
-	// 		  }
-	// 		}
-	// 	  }`;
-
-	// 	const variables = `{
-	// 		"cartInput": {
-	// 			"lines": [
-	// 				{
-	// 					"quantity": 1,
-	// 					"variantId": "gid://shopify/ProductVariant/40687600599194",
-	// 				}
-	// 			]
-	// 		}
-	// 	}`;
-
-	// 	const shopify = await shopifyQuery(query, variables);
-	// 	console.log(shopify);
-	//}
 }

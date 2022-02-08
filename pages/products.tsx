@@ -4,14 +4,14 @@ import { NextPage } from "next";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Nav from "../components/Nav";
-import beef from "../imgs/beef.png";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
-import { updateLocal, addToCart, removeLine, updateLine, initialiseCart } from "../utils/cartHelpers";
+import { initialiseCart } from "../utils/cartHelpers";
 import Footer from "../components/Footer";
 import { mediaQuery } from "../utils/mediaQuery";
 import Email from "../components/Email";
 import { getImage } from "../utils/helpers";
+import CartContext from "../utils/CartContext";
 
 const Products: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<[ProductType]>();
@@ -41,58 +41,61 @@ const Products: NextPage = ({ shopify }: any) => {
 		setProducts(items);
 	}, [shopify.data.products.edges]);
 
-	console.log(products);
-	console.log(localCart);
+	// console.log(products);
+	// console.log(localCart);
 
 	return (
-		<div css={css``}>
-			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
-			<div
-				css={css`
-					padding: 0 35px;
-					padding-top: 110px;
-					font-family: Montserrat;
-					text-align: center;
-					@media (min-width: ${mediaQuery}) {
-						padding-top: 150px;
-					}
-				`}
-			>
-				<h1
-					css={css`
-						margin: 0;
-						padding: 0;
-						font-weight: 600;
-						font-size: 27px;
-					`}
-				>
-					All Products
-				</h1>
+		<CartContext.Provider
+			value={{
+				localCart,
+				setLocalCart,
+			}}
+		>
+			<div css={css``}>
+				<Nav localCart={localCart} />
 				<div
 					css={css`
-						margin-bottom: 100px;
+						padding: 0 35px;
+						padding-top: 110px;
+						font-family: Montserrat;
+						text-align: center;
 						@media (min-width: ${mediaQuery}) {
-							display: flex;
-							flex-wrap: wrap;
+							padding-top: 150px;
 						}
 					`}
 				>
-					{products ? (
-						products.map((product: ProductType, index: number) => {
-							return <Card addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} merchId={product.merchId} img={product.img} title={product.title} description={product.description} price={product.price} key={index} />;
-						})
-					) : (
-						<div></div>
-					)}
-					{/* <Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" />
-					<Card addToCart={addToCart} localCart={localCart} merchId="Z2lkOi8vc2hvcGlmeS9Qcm9kdWN0VmFyaWFudC80MDY4NjQyMDk1MTE5NA==" img={beef} title="BEEF + LAMB RECIPE" description="Our #1 Pick for Picky Eaters!" price="$7" /> */}
+					<h1
+						css={css`
+							margin: 0;
+							padding: 0;
+							font-weight: 600;
+							font-size: 27px;
+						`}
+					>
+						All Products
+					</h1>
+					<div
+						css={css`
+							margin-bottom: 100px;
+							@media (min-width: ${mediaQuery}) {
+								display: flex;
+								flex-wrap: wrap;
+							}
+						`}
+					>
+						{products ? (
+							products.map((product: ProductType, index: number) => {
+								return <Card merchId={product.merchId} img={product.img} title={product.title} description={product.description} price={product.price} key={index} />;
+							})
+						) : (
+							<div></div>
+						)}
+					</div>
 				</div>
+				<Email />
+				<Footer />
 			</div>
-			<Email />
-			<Footer />
-		</div>
+		</CartContext.Provider>
 	);
 };
 

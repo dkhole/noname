@@ -1,11 +1,23 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { addCartButton, bowlImg, buttonWrap, imgShowWrap, imgSliderWrap, inputQuantity, mainInfoWrap, packetImg, productLandingWrap, productTitle, sliderLink, subheading, testimonials } from "../styles/productStyles";
+import CartContext from "../utils/CartContext";
+import { addToCart } from "../utils/cartHelpers";
 
-export default function Product({ title, description, merchId, imgBowl, imgPacket, addToCart, setLocalCart, localCart }: any) {
+interface Props {
+	title: string;
+	description: string;
+	merchId: string;
+	imgBowl: StaticImageData;
+	imgPacket: StaticImageData;
+}
+
+export default function Product({ title, description, merchId, imgBowl, imgPacket }: Props) {
 	const [quantity, setQuantity] = useState<number>(1);
+
+	const { localCart, setLocalCart } = useContext(CartContext);
 
 	return (
 		<div css={productLandingWrap}>

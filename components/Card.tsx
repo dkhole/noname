@@ -2,14 +2,12 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getLink } from "../utils/helpers";
-import { CartType } from "../utils/types";
+import { addToCart } from "../utils/cartHelpers";
+import CartContext from "../utils/CartContext";
 
-interface CardProps {
-	addToCart: Function;
-	localCart: CartType;
-	setLocalCart: Function;
+interface Props {
 	merchId: string;
 	img: any;
 	title: string;
@@ -17,11 +15,13 @@ interface CardProps {
 	price: number;
 }
 
-export default function Card({ addToCart, localCart, setLocalCart, merchId, img, title, description, price }: CardProps) {
-	const [link, setLink] = useState('');
+export default function Card({ merchId, img, title, description, price }: Props) {
+	const [link, setLink] = useState("");
+
+	const { localCart, setLocalCart } = useContext(CartContext);
 
 	useEffect(() => {
-		if(title.length > 0) {
+		if (title.length > 0) {
 			setLink(getLink(title.charAt(0)));
 		}
 	}, [title]);
@@ -41,22 +41,28 @@ export default function Card({ addToCart, localCart, setLocalCart, merchId, img,
 					cursor: pointer;
 				`}
 			>
-				<div css={css`
-					position: relative;
-					height: 350px;
-					width: 350px;
-					top: 15px;
-				`}>{
-					(img) ? 			<Image
-					src={img}
-					alt="Beef dog food"
-					layout="fill"
-					priority={true}
-					quality={30}
-					blurDataURL="data:..." //automatically provided
-					placeholder="blur" // Optional blur-up while loading
-				/>  :<div>IMAGE ERROR</div>
-				}</div>
+				<div
+					css={css`
+						position: relative;
+						height: 350px;
+						width: 350px;
+						top: 15px;
+					`}
+				>
+					{img ? (
+						<Image
+							src={img}
+							alt="Beef dog food"
+							layout="fill"
+							priority={true}
+							quality={30}
+							blurDataURL="data:..." //automatically provided
+							placeholder="blur" // Optional blur-up while loading
+						/>
+					) : (
+						<div>IMAGE ERROR</div>
+					)}
+				</div>
 
 				<div>
 					<h5

@@ -4,13 +4,13 @@ import { useState } from "react";
 import { mediaQuery } from "../utils/mediaQuery";
 import InfoContent from "./InfoContent";
 
-interface InfoProps {
+interface Props {
 	title: string;
 	content: string;
 	table: boolean;
 }
 
-export default function Info({ title, content, table }: InfoProps) {
+export default function Info({ title, content, table }: Props) {
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 
 	const infoStyles = (isOpen: boolean) => css`
@@ -34,7 +34,6 @@ export default function Info({ title, content, table }: InfoProps) {
 			@media (min-width: ${mediaQuery}) {
 			}
         `}
-
 	`;
 
 	const infoLast = (isOpen: boolean) => css`

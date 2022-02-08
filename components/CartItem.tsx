@@ -1,21 +1,22 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import beef from "../public/imgs/beef.png";
+import CartContext from "../utils/CartContext";
+import { removeLine, updateLine } from "../utils/cartHelpers";
 
 interface Props {
 	cartId: string;
-	setLocalCart: Function;
-	removeLine: Function;
-	updateLine: Function;
 	item: any;
 	quantity: number;
 }
 
-export default function CartItem({ cartId, setLocalCart, removeLine, updateLine, item, quantity }: Props) {
+export default function CartItem({ cartId, item, quantity }: Props) {
 	const [itemQuantity, setItemQuantity] = useState<number>(0);
 	const [revealUpdate, setRevealUpdate] = useState<boolean>(false);
+
+	const { setLocalCart } = useContext(CartContext);
 
 	useEffect(() => {
 		setItemQuantity(quantity);

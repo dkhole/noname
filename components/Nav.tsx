@@ -9,14 +9,11 @@ import Link from "next/link";
 import { CartType } from "../utils/types";
 import { mediaQuery } from "../utils/mediaQuery";
 
-interface NavProps {
+interface Props {
 	localCart: CartType;
-	setLocalCart: Function;
-	removeLine: Function;
-	updateLine: Function;
 }
 
-export default function Nav({ localCart, setLocalCart, removeLine, updateLine }: NavProps) {
+export default function Nav({ localCart }: Props) {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	const [isCartOpen, setIsCartOpen] = useState(false);
 	const [cartQuantity, setCartQuantity] = useState(0);
@@ -341,7 +338,7 @@ export default function Nav({ localCart, setLocalCart, removeLine, updateLine }:
 				>
 					{localCart.lines.length > 0 ? (
 						localCart.lines.map((item: any, count: number) => {
-							return <CartItem cartId={localCart.id} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
+							return <CartItem cartId={localCart.id} item={item} quantity={parseInt(item.node.quantity)} key={count} />;
 						})
 					) : (
 						<div></div>

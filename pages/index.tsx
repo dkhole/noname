@@ -11,7 +11,8 @@ import Email from "../components/Email";
 import Footer from "../components/Footer";
 import { shopifyQuery } from "../utils/shopifyQuery";
 import { CartType, ProductType } from "../utils/types";
-import { updateLocal, addToCart, removeLine, updateLine, initialiseCart } from "../utils/cartHelpers";
+import { initialiseCart } from "../utils/cartHelpers";
+import CartContext from "../utils/CartContext";
 
 const Home: NextPage = ({ shopify }: any) => {
 	const [products, setProducts] = useState<ProductType[]>([]);
@@ -42,23 +43,28 @@ const Home: NextPage = ({ shopify }: any) => {
 		setProducts(items);
 	}, [shopify.data.products.edges]);
 
-	console.log(products);
-	console.log(localCart);
 	return (
-		<div
-			css={css`
-				width: 100vw;
-				overflow-x: hidden;
-				position: relative;
-			`}
+		<CartContext.Provider
+			value={{
+				localCart,
+				setLocalCart,
+			}}
 		>
-			<Nav localCart={localCart} setLocalCart={setLocalCart} removeLine={removeLine} updateLine={updateLine} />
-			<Landing />
-			<BestSellers addToCart={addToCart} localCart={localCart} setLocalCart={setLocalCart} products={products} />
-			<Values />
-			<Email />
-			<Footer />
-		</div>
+			<div
+				css={css`
+					width: 100vw;
+					overflow-x: hidden;
+					position: relative;
+				`}
+			>
+				<Nav localCart={localCart} />
+				<Landing />
+				<BestSellers products={products} />
+				<Values />
+				<Email />
+				<Footer />
+			</div>
+		</CartContext.Provider>
 	);
 };
 

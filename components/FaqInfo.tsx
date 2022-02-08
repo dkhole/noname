@@ -3,12 +3,12 @@ import { css } from "@emotion/react";
 import { useState } from "react";
 import { mediaQuery } from "../utils/mediaQuery";
 
-interface FaqInfoProps {
+interface Props {
 	title: string;
 	blocks: any[];
 }
 
-export default function FaqInfo({ title, blocks }: FaqInfoProps) {
+export default function FaqInfo({ title, blocks }: Props) {
 	const [isInfoOpen, setIsInfoOpen] = useState(false);
 
 	const infoStyles = (isOpen: boolean) => css`
