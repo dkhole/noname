@@ -18,7 +18,6 @@ export default function Product({ title, description, merchId, imgBowl, imgPacke
 	const [quantity, setQuantity] = useState<number>(1);
 
 	const { localCart, setLocalCart } = useContext(CartContext);
-
 	return (
 		<div css={productLandingWrap}>
 			<div css={imgSliderWrap}>

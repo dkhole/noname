@@ -2,9 +2,9 @@
 import { css } from "@emotion/react";
 import Image from "next/image";
 import { useContext, useEffect, useState } from "react";
-import beef from "../public/imgs/beef.png";
 import CartContext from "../utils/CartContext";
 import { removeLine, updateLine } from "../utils/cartHelpers";
+import { getImage } from "../utils/helpers";
 
 interface Props {
 	cartId: string;
@@ -15,8 +15,14 @@ interface Props {
 export default function CartItem({ cartId, item, quantity }: Props) {
 	const [itemQuantity, setItemQuantity] = useState<number>(0);
 	const [revealUpdate, setRevealUpdate] = useState<boolean>(false);
+	const [img, setImg] = useState<string>("");
 
 	const { setLocalCart } = useContext(CartContext);
+
+	useEffect(() => {
+		const img: string = getImage(item.node.merchandise.product.title.charAt(0));
+		setImg(img);
+	}, []);
 
 	useEffect(() => {
 		setItemQuantity(quantity);
@@ -38,17 +44,17 @@ export default function CartItem({ cartId, item, quantity }: Props) {
 				display: flex;
 				align-items: center;
 				padding: 12.5px;
+				padding-left: 0;
 				margin-top: 15px;
 			`}
 		>
-			<Image src={beef} alt="Beef dogfood image" height={70} width={70} />
+			{img ? <Image src={img} alt="Beef dogfood image" height={125} width={150} /> : <div>Cannot find image</div>}
 
 			<div
 				css={css`
 					position: relative;
 					display: flex;
 					flex-direction: column;
-					margin-left: 25px;
 					width: 100%;
 				`}
 			>

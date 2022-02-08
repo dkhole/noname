@@ -1,4 +1,4 @@
-export const getImage = (firstLetter: string) => {
+export const getImage = (firstLetter: string): string => {
     switch(firstLetter) {
         case('C'):
             return "/imgs/Chicken_trans.png";
@@ -10,10 +10,12 @@ export const getImage = (firstLetter: string) => {
             return "/imgs/Roo_trans.png";
         case('P'):
             return "/imgs/Puppy_trans.png";
+        default:
+            return "";
     }
 }
 
-export const getLink = (firstLetter: string) => {
+export const getLink = (firstLetter: string): string => {
     switch(firstLetter) {
         case('C'):
             return "/products/chicken";
