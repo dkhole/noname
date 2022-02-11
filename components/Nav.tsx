@@ -211,7 +211,9 @@ export default function Nav({ localCart }: Props) {
 				<div
 					css={css`
 						position: relative;
+						cursor: pointer;
 					`}
+					onClick={toggleCart}
 				>
 					<div
 						css={css`
@@ -254,14 +256,13 @@ export default function Nav({ localCart }: Props) {
 							position: relative;
 							height: 25px;
 							width: 25px;
-							cursor: pointer;
 							@media (min-width: ${mediaQuery}) {
 								height: 37.5px;
 								width: 37.5px;
 							}
 						`}
 					>
-						<Image src={cart} alt="Shopping cart logo" onClick={toggleCart} layout="fill" />
+						<Image src={cart} alt="Shopping cart logo" layout="fill" />
 					</div>
 				</div>
 			) : (

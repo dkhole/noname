@@ -89,11 +89,13 @@ export default function Card({ merchId, img, title, description, price }: Props)
 						{"$" + price}
 					</span>
 					<br />
-					<span
+					<button
 						onClick={(e) => addToCart(e, localCart.id, merchId, 1, setLocalCart)}
 						css={css`
 							font-weight: 600;
 							font-size: 12px;
+							border: none;
+							background: none;
 							&:hover {
 								text-decoration: underline;
 								text-decoration-color: #f58f83;
@@ -103,7 +105,7 @@ export default function Card({ merchId, img, title, description, price }: Props)
 						`}
 					>
 						ADD TO BAG
-					</span>
+					</button>
 				</div>
 			</div>
 		</Link>
