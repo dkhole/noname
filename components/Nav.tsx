@@ -120,8 +120,11 @@ export default function Nav({ localCart }: Props) {
 			`}
 		>
 			<div css={navStyles(isNavOpen)}>
-				<div
+				<button
 					css={css`
+						background: none;
+						border: none;
+						color: #f2efe4;
 						position: relative;
 						top: 10px;
 						left: 20px;
@@ -135,7 +138,7 @@ export default function Nav({ localCart }: Props) {
 					onClick={toggleNav}
 				>
 					X
-				</div>
+				</button>
 				<div
 					css={css`
 						width: 250px;
@@ -170,16 +173,18 @@ export default function Nav({ localCart }: Props) {
 					</Link>
 				</div>
 			</div>
-			<div
+			<button
 				css={css`
 					cursor: pointer;
+					background: none;
+					border: none;
 				`}
 				onClick={toggleNav}
 			>
 				<span css={hamburgerSpanStyle}></span>
 				<span css={hamburgerSpanStyle}></span>
 				<span css={hamburgerSpanStyle}></span>
-			</div>
+			</button>
 			<Link href="/" passHref>
 				<div
 					css={css`
@@ -208,10 +213,12 @@ export default function Nav({ localCart }: Props) {
 				</div>
 			</Link>
 			{cartQuantity > 0 ? (
-				<div
+				<button
 					css={css`
 						position: relative;
 						cursor: pointer;
+						background: none;
+						border: none;
 					`}
 					onClick={toggleCart}
 				>
@@ -264,10 +271,12 @@ export default function Nav({ localCart }: Props) {
 					>
 						<Image src={cart} alt="Shopping cart logo" layout="fill" />
 					</div>
-				</div>
+				</button>
 			) : (
-				<div
+				<button
 					css={css`
+						background: none;
+						border: none;
 						position: relative;
 						height: 25px;
 						width: 25px;
@@ -279,12 +288,14 @@ export default function Nav({ localCart }: Props) {
 					`}
 				>
 					<Image src={cart} alt="Shopping cart logo" onClick={toggleCart} layout="fill" />
-				</div>
+				</button>
 			)}
 
 			<div css={cartStyles(isCartOpen)}>
-				<div
+				<button
 					css={css`
+						background: none;
+						border: none;
 						position: relative;
 						top: 17.5px;
 						right: -310px;
@@ -299,7 +310,7 @@ export default function Nav({ localCart }: Props) {
 					onClick={toggleCart}
 				>
 					x
-				</div>
+				</button>
 				<h3
 					css={css`
 						font-weight: 300;

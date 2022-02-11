@@ -71,9 +71,6 @@ export const bowlImg = css`
     margin: auto;
     scroll-snap-align: start;
     flex-shrink: 0;
-    transform-origin: center center;
-    transform: scale(1);
-    transition: transform 0.5s;
     height: 325px;
     width: 100vw;
     @media (min-width: ${mediaQuery}) {
@@ -90,9 +87,6 @@ export const packetImg = css`
     margin: auto;
     scroll-snap-align: start;
     flex-shrink: 0;
-    transform-origin: center center;
-    transform: scale(1);
-    transition: transform 0.5s;
     height: 450px;
     width: 100vw;
     @media (min-width: ${mediaQuery}) {
