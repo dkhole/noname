@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import Image from "next/image";
-import { useContext, useState } from "react";
-import { addCartButton, bowlImg, buttonWrap, imgShowWrap, imgSliderWrap, inputQuantity, mainInfoWrap, packetImg, productLandingWrap, productTitle, sliderLink, subheading, testimonials } from "../styles/productStyles";
+import { useContext, useState, useRef } from "react";
+import { addCartButton, bowlImg, buttonWrap, imgShowWrap, imgSliderWrap, inputQuantity, mainInfoWrap, packetImg, productLandingWrap, productTitle, subheading, testimonials } from "../styles/productStyles";
 import CartContext from "../utils/CartContext";
 import { addToCart } from "../utils/cartHelpers";
 
@@ -16,13 +16,36 @@ interface Props {
 
 export default function Product({ title, description, merchId, imgBowl, imgPacket }: Props) {
 	const [quantity, setQuantity] = useState<number>(1);
+	const [currSlide, setCurrSlide] = useState(0);
+	const scrollPos: any = useRef(null);
 
 	const { localCart, setLocalCart } = useContext(CartContext);
+
+	const slideOneStyles = css`
+		background: ${currSlide == 0 ? `#f58f83` : `#2b6e6c`};
+	`;
+
+	const slideTwoStyles = css`
+		background: ${currSlide == 1 ? `#f58f83` : `#2b6e6c`};
+	`;
+
 	return (
 		<div css={productLandingWrap}>
 			<div css={imgSliderWrap}>
-				<div css={imgShowWrap}>
-					<div css={bowlImg} id="slide-1">
+				<div
+					css={imgShowWrap}
+					onScroll={(e) => {
+						//console.log(scrollPos.current.getBoundingClientRect());
+						if (scrollPos.current.getBoundingClientRect().height === 325) {
+							//console.log("mobile");
+							scrollPos.current.getBoundingClientRect().left >= 0 ? setCurrSlide(0) : setCurrSlide(1);
+						} else {
+							//console.log("desktop");
+							scrollPos.current.getBoundingClientRect().left < 300 ? setCurrSlide(1) : setCurrSlide(0);
+						}
+					}}
+				>
+					<div css={bowlImg} id="slide-1" ref={scrollPos}>
 						<Image
 							src={imgBowl}
 							alt="Bowl dog food"
@@ -48,10 +71,10 @@ export default function Product({ title, description, merchId, imgBowl, imgPacke
 					</div>
 				</div>
 				<div css={buttonWrap}>
-					<a href="#slide-1" css={sliderLink}>
+					<a href="#slide-1" css={slideOneStyles}>
 						1
 					</a>
-					<a href="#slide-2" css={sliderLink}>
+					<a href="#slide-2" css={slideTwoStyles}>
 						2
 					</a>
 				</div>

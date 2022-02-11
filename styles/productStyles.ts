@@ -37,21 +37,19 @@ export const buttonWrap = css`
     width: 50px;
     margin: auto;
     z-index: 1;
-`
-
-export const sliderLink = css`
-    display: inline-flex;
-    width: 16px;
-    height: 16px;
-    background: #2b6e6c;
-    text-decoration: none;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    margin: 3px;
+    a {
+        display: inline-flex;
+        width: 16px;
+        height: 16px;
+        text-decoration: none;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        margin: 3px;
+    }
 `
 
 export const imgShowWrap = css`
