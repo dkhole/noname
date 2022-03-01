@@ -4,24 +4,14 @@ import Nav from "../../components/Nav";
 import Info from "../../components/Info";
 import kangaroo from "../../public/imgs/Roo_trans.png";
 import kangarooPack from "../../public/imgs/Roo_trans_packaged.png";
-import { useEffect, useState } from "react";
 import { CartType } from "../../utils/types";
-import { initialiseCart } from "../../utils/cartHelpers";
 import { mainWrap } from "../../styles/productStyles";
 import Product from "../../components/Product";
 import CartContext from "../../utils/CartContext";
+import useInitialiseCart from "../../utils/useInitialiseCart";
 
 export default function Kangaroo() {
-	const [localCart, setLocalCart] = useState<CartType>({
-		checkoutUrl: "",
-		id: "",
-		totalAmount: 0,
-		lines: [],
-	});
-
-	useEffect(() => {
-		initialiseCart(setLocalCart);
-	}, []);
+	const [localCart, setLocalCart]: [CartType, React.Dispatch<React.SetStateAction<CartType>>] = useInitialiseCart();
 
 	return (
 		<CartContext.Provider

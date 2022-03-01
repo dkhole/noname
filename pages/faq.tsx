@@ -1,27 +1,17 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import Nav from "../components/Nav";
 import FaqInfo from "../components/FaqInfo";
-import { initialiseCart } from "../utils/cartHelpers";
 import { CartType } from "../utils/types";
 import Email from "../components/Email";
 import { mediaQuery } from "../utils/mediaQuery";
 import CartContext from "../utils/CartContext";
+import useInitialiseCart from "../utils/useInitialiseCart";
 
 const Faq: NextPage = () => {
-	const [localCart, setLocalCart] = useState<CartType>({
-		checkoutUrl: "",
-		id: "",
-		totalAmount: 0,
-		lines: [],
-	});
-
-	useEffect(() => {
-		initialiseCart(setLocalCart);
-	}, []);
+	const [localCart, setLocalCart]: [CartType, React.Dispatch<React.SetStateAction<CartType>>] = useInitialiseCart();
 
 	return (
 		<CartContext.Provider
