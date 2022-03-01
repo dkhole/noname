@@ -47,7 +47,6 @@ export default function Nav({ localCart }: Props) {
 	const navStyles = (isOpen: boolean) => css`
 		font-family: Montserrat;
 		background-color: #519492;
-		color: #f2efe4;
 		height: 100%;
 		width: 0;
 		overflow-x: hidden;
@@ -65,6 +64,7 @@ export default function Nav({ localCart }: Props) {
 	const cartStyles = (isOpen: boolean) => css`
 		font-family: Montserrat;
 		background-color: white;
+		color: white;
 		height: 100vh;
 		width: 0;
 		overflow-x: hidden;
@@ -72,26 +72,36 @@ export default function Nav({ localCart }: Props) {
 		z-index: 1;
 		top: 0;
 		right: 0;
-		transition: 0.5s;
+		transition: width 0.5s;
 		width: 0;
 		border-left: 1px solid black;
+		& > * {
+			visibility: hidden;
+		}
 		${isOpen === true &&
 		`
 			width: 350px;
+			color: black;
+			& > * {
+				visibility: visible;
+			}
 		`}
 	`;
 
-	const linkStyles = css`
+	const linkStyles = (isOpen: boolean) => css`
 		text-decoration: none;
 		text-transform: uppercase;
-		color: #f2efe4;
+		color: #519492;
 		font-weight: 600;
 		letter-spacing: 1.25px;
 		font-size: 17px;
 		&:hover {
 			color: #fcbdb1;
-			/*color: white;*/
 		}
+		${isOpen === true &&
+		`
+			color: #f2efe4;
+		`}
 	`;
 
 	const toggleNav = () => {
@@ -153,23 +163,23 @@ export default function Nav({ localCart }: Props) {
 					`}
 				>
 					<Link href="/" passHref>
-						<a css={linkStyles}>Home</a>
+						<a css={linkStyles(isNavOpen)}>Home</a>
 					</Link>
 
 					<Link href="/products" passHref>
-						<a css={linkStyles}>Shop All</a>
+						<a css={linkStyles(isNavOpen)}>Shop All</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>FAQ</a>
+						<a css={linkStyles(isNavOpen)}>FAQ</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>Shipping + Delivery</a>
+						<a css={linkStyles(isNavOpen)}>Shipping + Delivery</a>
 					</Link>
 
 					<Link href="/faq" passHref>
-						<a css={linkStyles}>Picky Pup Guarantee</a>
+						<a css={linkStyles(isNavOpen)}>Picky Pup Guarantee</a>
 					</Link>
 				</div>
 			</div>

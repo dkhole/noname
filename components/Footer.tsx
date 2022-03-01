@@ -12,17 +12,15 @@ export default function Footer() {
 				height: 175px;
 				display: flex;
 				justify-content: center;
+				align-items: center;
 				font-size: 13px;
+				gap: 40px;
 				@media (min-width: ${mediaQuery}) {
 					gap: 100px;
 				}
 			`}
 		>
-			<div
-				css={css`
-					padding: 20px 50px 0;
-				`}
-			>
+			<div css={css``}>
 				<h4>THE USEFUL BITS</h4>
 				<span
 					css={css`
